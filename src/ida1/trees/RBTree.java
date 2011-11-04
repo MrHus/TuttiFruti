@@ -504,4 +504,53 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 			return (RBKnoop)parent.getLeftChild();
 		}
 	}
+
+	public static void test()
+	{
+		RBTree<Integer> tree = new RBTree<Integer>();
+
+		tree.insert(10);
+		System.out.println(tree.getRoot().preOrderToString());
+		tree.insert(1);
+		System.out.println(tree.getRoot().preOrderToString());
+		tree.insert(11);
+		System.out.println(tree.getRoot().preOrderToString());
+		tree.insert(12);
+		System.out.println(tree.getRoot().preOrderToString());
+		tree.insert(4);
+		System.out.println(tree.getRoot().preOrderToString());
+		tree.insert(9);
+		System.out.println(tree.getRoot().preOrderToString());
+		tree.insert(55);
+		System.out.println(tree.getRoot().preOrderToString());
+		tree.insert(66);
+		System.out.println(tree.getRoot().preOrderToString());
+		tree.insert(3);
+		System.out.println(tree.getRoot().preOrderToString());
+		tree.insert(7);
+		System.out.println(tree.getRoot().preOrderToString());
+		tree.insert(17);
+
+		System.out.println("\nNext pair of lines should be equal\n");
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("B:10 R:4 B:1  R:3   B:9 R:7    R:12 B:11   B:55 R:17   R:66 ");
+
+		System.out.println("\nDeletion WARNING DOES NOT WORK PERFECTLY\n");
+
+		tree.delete(3);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("B:10 R:4 B:1   B:9 R:7    R:12 B:11   B:55 R:17   R:66");
+
+		tree.delete(4);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("B:10 R:7 B:1     B:9   R:12 B:11   B:55 R:17   R:66 ");
+
+		tree.delete(10);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("B:11 R:7 B:1     B:9   R:55 B:12    R:17   B:66 ");
+
+		tree.delete(55);
+		System.out.println(tree.getRoot().preOrderToString());
+		//System.out.println("B:11 R:7 B:1     B:9   B:17 B:12       R:66");
+	}
 }

@@ -1,6 +1,9 @@
 package ida1.trees;
 
 /**
+ * Wikipedia: http://en.wikipedia.org/wiki/AVL_tree
+ *
+ * Animation: http://www.site.uottawa.ca/~stan/csi2514/applets/avl/BT.html
  *
  * @author maartenhus
  */
@@ -305,110 +308,82 @@ public class AVLTree<E extends Comparable<E>> extends Tree<E>
 		}
 	}
 
-	// Deletes a BKnoop (node) that has one child. Attaches that child to the parent of node
-	// on the previous location of node in parent.
-	private void switchNodeForDeleteWithOneChild(BKnoop<E> node, int leftOrRight)
+	public static void test()
 	{
-		BKnoop<E> parent = node.getParent();
-		BKnoop<E> child;
+		AVLTree tree = new AVLTree();
 
-		if (leftOrRight == BKnoop.LEFT)
-		{
-			child = node.getLeftChild();
-		}
-		else
-		{
-			child = node.getRightChild();
-		}
+		System.out.println("Following lines should be the same");
 
-		if (parent != null)
-		{
-			node.remove(child);
+		tree.insert(3);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("3");
 
-			if (parent.getLeftChild() == node)
-			{
-				parent.remove(node);
-				parent.insert(child, BKnoop.LEFT);
-			}
-			else
-			{
-				parent.remove(node);
-				parent.insert(child, BKnoop.RIGHT);
-			}
-		}
-		else
-		{
-			if (node == root)
-			{
-				root = null;
-			}
-		}
-	}
+		tree.insert(2);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("3 2");
 
-	// This is used when deleting a node. This node gets switched with the
-	// node its deleting.
-	private BKnoop <E> getLargestInLeftSubtree(BKnoop <E> node)
-	{
-		BKnoop <E> tree = node.getLeftChild();
-		if (tree == null)
-		{
-			return node;
-		}
-		else
-		{
-			while (true)
-			{
-				BKnoop<E> rightChildOfLeftTree = tree.getRightChild();
+		tree.insert(1);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("2 1 3");
 
-				if (rightChildOfLeftTree == null)
-				{
-					return tree;
-				}
+		tree.insert(4);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("2 1 3 4");
 
-				tree = rightChildOfLeftTree;
-			}
-		}
-	}
+		tree.insert(5);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("2 1 4 3 5");
 
-	public boolean contains(E element)
-	{
-		if (root == null)
-		{
-			return false;
-		}
+		System.out.println("\nStart testing delete");
 
-		return contains(element, root);
-	}
+		System.out.println("\ndelete 2");
+		tree.delete(2);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("4 1 3 5");
 
-	private boolean contains(E element, BKnoop<E> node)
-	{
-		int comp = element.compareTo(node.get());
+		System.out.println("\nReinsert 2");
+		tree.insert(2);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("4 2 1 3 5");
 
-		if (comp == -1)
-		{
-			if(node.getLeftChild() == null)
-			{
-				return false;
-			}
-			else
-			{
-				return contains(element, node.getLeftChild());
-			}
-		}
-		else if (comp == 1)
-		{
-			if(node.getRightChild() == null)
-			{
-				return false;
-			}
-			else
-			{
-				return contains(element, node.getRightChild());
-			}
-		}
-		else // Element is found
-		{
-			return true;
-		}
+		System.out.println("\ndelete 5");
+		tree.delete(5);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("2 1 4 3");
+
+		System.out.println("\ndelete 4");
+		tree.delete(4);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("2 1 3");
+
+		System.out.println("\nFollowing lines should be the same");
+
+		tree.insert(6);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("2 1 3 6");	
+		
+		tree.insert(7);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("2 1 6 3 7");
+		
+		tree.insert(16);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("6 2 1 3 7 16");
+		
+		tree.insert(15);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("6 2 1 3 15 7 16");
+
+		tree.insert(14);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("6 2 1 3 15 7 14 16");
+
+		System.out.println("\nTesting the contains");
+		System.out.println("Contains: 15 - " + tree.contains(15));
+		System.out.println("Contains: 16 - " + tree.contains(16));
+		System.out.println("Contains: 6  - " + tree.contains(6));
+		System.out.println("Contains: 2  - " + tree.contains(2));
+		System.out.println("Contains: 0  - " + tree.contains(0));
+		System.out.println("Contains: 55 - " + tree.contains(55));
 	}
 }

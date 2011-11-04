@@ -7,9 +7,13 @@ package ida1.trees;
  * 
  *  Wikipedia: http://en.wikipedia.org/wiki/Tree_rotation
  *
+ *	Has a delete for when node is leaf, and when node has one child
+ *
+ *  Also the method contains(element) to check if its in the tree.
+ *
  * @author maartenhus
  */
-public class Tree <E>
+public abstract class Tree <E extends Comparable<E>>
 {
 	protected BKnoop<E> root;
 
@@ -148,6 +152,113 @@ public class Tree <E>
 		if (rt == root)
 		{
 			root = pivot;
+		}
+	}
+
+	public boolean contains(E element)
+	{
+		if (root == null)
+		{
+			return false;
+		}
+
+		return contains(element, root);
+	}
+
+	private boolean contains(E element, BKnoop<E> node)
+	{
+		int comp = element.compareTo(node.get());
+
+		if (comp == -1)
+		{
+			if(node.getLeftChild() == null)
+			{
+				return false;
+			}
+			else
+			{
+				return contains(element, node.getLeftChild());
+			}
+		}
+		else if (comp == 1)
+		{
+			if(node.getRightChild() == null)
+			{
+				return false;
+			}
+			else
+			{
+				return contains(element, node.getRightChild());
+			}
+		}
+		else // Element is found
+		{
+			return true;
+		}
+	}
+
+	// Deletes a BKnoop (node) that has one child. Attaches that child to the parent of node
+	// on the previous location of node in parent.
+	protected void switchNodeForDeleteWithOneChild(BKnoop<E> node, int leftOrRight)
+	{
+		BKnoop<E> parent = node.getParent();
+		BKnoop<E> child;
+
+		if (leftOrRight == BKnoop.LEFT)
+		{
+			child = node.getLeftChild();
+		}
+		else
+		{
+			child = node.getRightChild();
+		}
+
+		if (parent != null)
+		{
+			node.remove(child);
+
+			if (parent.getLeftChild() == node)
+			{
+				parent.remove(node);
+				parent.insert(child, BKnoop.LEFT);
+			}
+			else
+			{
+				parent.remove(node);
+				parent.insert(child, BKnoop.RIGHT);
+			}
+		}
+		else
+		{
+			if (node == root)
+			{
+				root = child;
+			}
+		}
+	}
+
+	// This is used when deleting a node. This node gets switched with the
+	// node its deleting.
+	protected BKnoop <E> getLargestInLeftSubtree(BKnoop <E> node)
+	{
+		BKnoop <E> tree = node.getLeftChild();
+		if (tree == null)
+		{
+			return node;
+		}
+		else
+		{
+			while (true)
+			{
+				BKnoop<E> rightChildOfLeftTree = tree.getRightChild();
+
+				if (rightChildOfLeftTree == null)
+				{
+					return tree;
+				}
+
+				tree = rightChildOfLeftTree;
+			}
 		}
 	}
 
