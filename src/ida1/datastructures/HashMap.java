@@ -397,4 +397,73 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>
 			throw new UnsupportedOperationException("Not supported yet.");
 		}
 	}
+
+	public static void test()
+	{
+		HashMap<String, Integer> testMap = new HashMap<String, Integer>();
+
+		System.out.println("\nChecking put");
+		testMap.put("a", 10);
+		testMap.put("b", 9);
+		testMap.put("b", 2);
+		testMap.put("c", 8);
+		testMap.put("c", 7);
+
+		for (Map.Entry<String, Integer> entry : testMap)
+		{
+			System.out.println("(" + entry.getKey() + ", " + entry.getValue() + ")");
+		}
+
+		System.out.println("Expecting (a, 10), (b, 2), (c, 7)");
+
+		System.out.println("\nChecking size");
+		System.out.println(testMap.size());
+		System.out.println("expecting 3");
+
+		System.out.println("\nChecking remove");
+		System.out.println(testMap.remove("b"));
+		System.out.println("Expect 2");
+		System.out.println(testMap.remove("c"));
+		System.out.println("Expect 7");
+
+		System.out.println("\nChecking size");
+		System.out.println(testMap.size());
+		System.out.println("Expect 1");
+
+		System.out.println("\nChecking containsKey");
+		System.out.println(testMap.containsKey("a"));
+		System.out.println(testMap.containsKey("b"));
+		System.out.println(testMap.containsKey("d"));
+		System.out.println("Expecting: true, false false");
+
+		System.out.println("\nChecking remove which makes map nil");
+		System.out.println(testMap.remove("a"));
+		System.out.println(testMap.size());
+		System.out.println("Expecting size to be 0");
+
+		testMap.put("a", 10);
+		testMap.put("ab", 12);
+		testMap.put("abb", 14);
+
+		System.out.println("Expect 10 got: " + testMap.get("a"));
+		System.out.println("Expect 12 got: " + testMap.get("ab"));
+		System.out.println("Expect 14 got: " + testMap.get("abb"));
+
+		System.out.println("\nChecking size");
+		System.out.println(testMap.size());
+		System.out.println("Expecting size to be 0");
+
+		System.out.println("\nPrinting all values");
+		System.out.println(testMap.values());
+		System.out.println("Expecting [10, 12, 14]");
+
+
+		System.out.println("\nTesting loop through entries");
+		for (Map.Entry<String, Integer> entry : testMap)
+		{
+			System.out.println("(" + entry.getKey() + ", " + entry.getValue() + ")");
+		}
+
+		System.out.println("Expecting (a, 10), (ab, 12), (abb, 14)");
+	}
 }

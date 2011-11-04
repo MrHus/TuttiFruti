@@ -129,4 +129,30 @@ public class HashSet<E> implements Set
 	{
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
+
+	public static void test()
+	{
+		HashSet<Integer> set = new HashSet<Integer>();
+
+		set.add(1);
+		set.add(2);
+		set.add(3);
+		set.add(3);
+
+		System.out.println("Testing size");
+		System.out.println(set.size());
+		System.out.println("Expecting size 3");
+
+		System.out.println("\nTesting contains");
+		System.out.println("contains 0 expect false - " + set.contains(0));
+		System.out.println("contains 1 expect true  - " + set.contains(1));
+
+		System.out.println("\nTesting to array");
+		for (int i = 0; i < set.toArray().length; i++)
+		{
+			System.out.println(set.toArray()[i]);
+		}
+
+		System.out.println("expect 1 2 3");
+	}
 }
