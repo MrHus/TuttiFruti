@@ -57,10 +57,10 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>
         HashEntry<K, V> tmpObj = table[hash];
 
 		if (tmpObj != null)
-		{	
+		{
 			if (tmpObj.next == null)
 			{
-				return tmpObj.key == key;
+				return tmpObj.key.equals(key);
 			}
 			else
 			{
@@ -79,7 +79,7 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>
 		}
 		else
 		{
-			if (entry.key == key)
+			if (entry.key.equals(key))
 			{
 				return true;
 			}
@@ -92,19 +92,22 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>
     {
         for (HashEntry<K, V> entry : table)
 		{
-			if(entry.value == value)
+			if(entry != null && entry.value.equals(value))
 			{
 				return true;
 			}
 
-			while(entry.next != null)
+			if (entry != null)
 			{
-				if (entry.next.value == value)
+				while(entry != null)
 				{
-					return true;
+					if (entry != null && entry.value.equals(value))
+					{
+						return true;
+					}
+
+					entry = entry.next;
 				}
-				
-				entry = entry.next;
 			}
 		}
 
@@ -157,7 +160,7 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>
         {
             return null;
         }
-        else if(entry.key == key)
+        else if(entry.key.equals(key))
         {
             return entry.value;
         }
@@ -204,7 +207,7 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>
         }
         else
         {
-			if(table[hash].key == key)
+			if(table[hash].key.equals(key))
 			{
 				V ret = table[hash].value;
 				table[hash].value = value;
@@ -272,7 +275,7 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>
 		}
 		else
 		{
-			if (table[hash].key == key)
+			if (table[hash].key.equals(key))
 			{
 				table[hash] = table[hash].next;
 				currentSize -= 1;
@@ -449,14 +452,19 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>
 		System.out.println("Expect 12 got: " + testMap.get("ab"));
 		System.out.println("Expect 14 got: " + testMap.get("abb"));
 
+		System.out.println("\nChecking contains value");
+		System.out.println("Expect true  got: " + testMap.containsValue(10));
+		System.out.println("Expect true  got: " + testMap.containsValue(12));
+		System.out.println("Expect true  got: " + testMap.containsValue(14));
+		System.out.println("Expect false got: " + testMap.containsValue(16));
+
 		System.out.println("\nChecking size");
 		System.out.println(testMap.size());
-		System.out.println("Expecting size to be 0");
+		System.out.println("Expecting size to be 3");
 
 		System.out.println("\nPrinting all values");
 		System.out.println(testMap.values());
 		System.out.println("Expecting [10, 12, 14]");
-
 
 		System.out.println("\nTesting loop through entries");
 		for (Map.Entry<String, Integer> entry : testMap)
