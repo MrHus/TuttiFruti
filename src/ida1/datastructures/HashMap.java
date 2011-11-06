@@ -53,7 +53,7 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>
 
     public boolean containsKey(Object key)
     {
-		int hash = key.hashCode() % tableSize;
+		int hash = getHashCode(key);
         HashEntry<K, V> tmpObj = table[hash];
 
 		if (tmpObj != null)
@@ -137,7 +137,7 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>
 
     public V get(Object key)
     {
-        int hash = key.hashCode() % tableSize;
+        int hash = getHashCode(key);
         HashEntry<K, V> tmpObj = table[hash];
 
         if(tmpObj == null)
@@ -196,8 +196,9 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>
 	
     public V put(K key, V value)
     {
-        int hash = key.hashCode() % tableSize;
-        
+        int hash = getHashCode(key);
+
+
         if(table[hash] == null)
         {
 			HashEntry<K, V> entry = new HashEntry<K, V>(key, value, null);
@@ -244,7 +245,7 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>
 
 	public V remove(Object key)
 	{
-		int hash = key.hashCode() % tableSize;
+		int hash = getHashCode(key);
         HashEntry<K, V> tmpObj = table[hash];
 
 		if (tmpObj == null)
@@ -288,6 +289,25 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>
     public int size()
     {
         return currentSize;
+    }
+
+    public int getHashCode(Object s)
+    {
+        int hash = s.hashCode() % tableSize;
+        //Edgecase, sometimes the hash is negative. It is however never lower
+        //then negative tableSize, therefore adding the tablesize to the hash
+        //value gives us the correct? positive hash that stays within the
+        //bounds of the array.
+        if(hash < 0)
+        {
+//            System.out.println(s + " -> " + (hash + tableSize));
+            return hash + tableSize;
+        }
+        else
+        {
+//            System.out.println(s + " -> " + hash);
+            return hash;
+        }
     }
 
     public Collection values()
@@ -474,4 +494,9 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>
 
 		System.out.println("Expecting (a, 10), (ab, 12), (abb, 14)");
 	}
+
+    public static void main(String[] args)
+    {
+        test();
+    }
 }
