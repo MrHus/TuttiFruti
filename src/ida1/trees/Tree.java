@@ -17,14 +17,20 @@ public abstract class Tree <E extends Comparable<E>>
 {
 	protected BKnoop<E> root;
 
+	// Counts the actions must be cleared manually.
+	protected int counter;
+
 	/**
-	 * Rotate rt to the right
+	 * Rotate rt to the right.
 	 *
+	 * Bumps counter
 	 *
 	 * @param rt the node that gets rotated
 	 */
 	protected void rightRotation(BKnoop<E> rt)
 	{
+		bumpCounter();
+
 		//System.out.println("RightRotation " + rt.get());
 
 		// take the pivot, the one that will take rt place
@@ -89,11 +95,14 @@ public abstract class Tree <E extends Comparable<E>>
 	/**
 	 * Rotate rt to the left
 	 *
+	 * Bumps counter
 	 *
 	 * @param rt the node that gets rotated
 	 */
 	protected void leftRotation(BKnoop<E> rt)
 	{
+		bumpCounter();
+
 		//System.out.println("LeftRotation " + rt.get());
 
 		// take the pivot, the one that will take rt place
@@ -155,6 +164,14 @@ public abstract class Tree <E extends Comparable<E>>
 		}
 	}
 
+	/**
+	 * Check if element exists in tree.
+	 *
+	 * bumps counter
+	 *
+	 * @param element
+	 * @return
+	 */
 	public boolean contains(E element)
 	{
 		if (root == null)
@@ -167,6 +184,8 @@ public abstract class Tree <E extends Comparable<E>>
 
 	private boolean contains(E element, BKnoop<E> node)
 	{
+		bumpCounter();
+
 		int comp = element.compareTo(node.get());
 
 		if (comp == -1)
@@ -265,5 +284,20 @@ public abstract class Tree <E extends Comparable<E>>
 	public BKnoop<E> getRoot()
 	{
 		return root;
+	}
+
+	public int getCounter()
+	{
+		return counter;
+	}
+
+	public void resetCounter()
+	{
+		counter = 0;
+	}
+
+	protected void bumpCounter()
+	{
+		counter += 1;
 	}
 }

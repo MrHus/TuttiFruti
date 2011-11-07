@@ -8,8 +8,6 @@ public class BKnoop<E>
 {
 	private BKnoop<E> parent, leftChild, rightChild;
 	private E userObject;
-	private static StringBuffer buffer;
-	private Queue<BKnoop<E>> q; // queue voor level-order wandeling
 	public static final int LEFT = 0;  // public constanten voor het
 	public static final int RIGHT = 1; // toevoegen van linker- of rechterkind
 
@@ -27,74 +25,186 @@ public class BKnoop<E>
 		this.userObject = userObject;
 	}
 
-	// Methoden
-	// preOrderToString() levert het resultaat van
-	// een preorder wandeling af in een string
+	/* =============== Walks =============== */
+
 	public String preOrderToString()
 	{
-		buffer = new StringBuffer();
-		preOrder();            // roep recursieve methode aan
+		StringBuffer buffer = new StringBuffer();
+
+		for (E node : preOrder())
+		{
+			buffer.append(node);
+			buffer.append(" ");
+		}
+
 		return buffer.toString();
 	}
 
-	private void preOrder()
+	public ArrayList<E> preOrder()
 	{
-		buffer.append(this);
-		buffer.append(" ");
+		ArrayList<E> retList = new ArrayList<E>();
+		preOrder(retList);
+		return retList;
+	}
+
+	private ArrayList<E> preOrder(ArrayList<E> retList)
+	{
+		retList.add(userObject);
+
 		if(leftChild != null)
 		{
-			leftChild.preOrder();
+			leftChild.preOrder(retList);
 		}
 		if(rightChild != null)
 		{
-			rightChild.preOrder();
+			rightChild.preOrder(retList);
 		}
-	}
 
-	/*
-	\/\/ Added content \/\/
-	 */
+		return retList;
+	}
 
 	public String inOrderToString()
 	{
-		buffer = new StringBuffer();
-		inOrder();
+		StringBuffer buffer = new StringBuffer();
+
+		for (E node : inOrder())
+		{
+			buffer.append(node);
+			buffer.append(" ");
+		}
+
 		return buffer.toString();
 	}
 
-	private void inOrder()
+	public ArrayList<E> inOrder()
+	{
+		ArrayList<E> retList = new ArrayList<E>();
+		inOrder(retList);
+		return retList;
+	}
+
+	private ArrayList<E> inOrder(ArrayList<E> retList)
 	{
 		if(leftChild != null)
 		{
-			leftChild.inOrder();
+			leftChild.inOrder(retList);
 		}
-		buffer.append(this);
-		buffer.append(" ");
+
+		retList.add(userObject);
+
 		if(rightChild != null)
 		{
-			rightChild.inOrder();
+			rightChild.inOrder(retList);
 		}
+
+		return retList;
 	}
 
 	public String postOrderToString()
 	{
-		buffer = new StringBuffer();
-		postOrder();
+		StringBuffer buffer = new StringBuffer();
+
+		for (E node : postOrder())
+		{
+			buffer.append(node);
+			buffer.append(" ");
+		}
+
 		return buffer.toString();
 	}
 
-	private void postOrder()
+	public ArrayList<E> postOrder()
+	{
+		ArrayList<E> retList = new ArrayList<E>();
+		postOrder(retList);
+		return retList;
+	}
+	
+	private ArrayList<E> postOrder(ArrayList<E> retList)
 	{
 		if(leftChild != null)
 		{
 			leftChild.postOrder();
 		}
+
 		if(rightChild != null)
 		{
 			rightChild.postOrder();
 		}
-		buffer.append(this);
-		buffer.append(" ");
+		
+		retList.add(userObject);
+
+		return retList;
+	}
+
+	public String levelOrderToString()
+	{
+		StringBuffer buffer = new StringBuffer();
+		
+		for (E node : levelOrder())
+		{
+			buffer.append(node);
+			buffer.append(" ");
+		}
+
+		return buffer.toString();
+	}
+
+	private ArrayList<E> levelOrder()
+	{
+		Queue<BKnoop<E>> queue = new LinkedList<BKnoop<E>>();
+		queue.add(this);
+
+		ArrayList<E> retList = new ArrayList<E>();
+		levelOrder(retList, queue);
+		return retList;
+	}
+
+	private ArrayList<E> levelOrder(ArrayList<E> retList, Queue<BKnoop<E>> queue)
+	{
+		while(!queue.isEmpty())
+		{
+			BKnoop<E> knoop = queue.remove();
+
+			retList.add(knoop.get());
+
+			if(knoop.leftChild != null)
+			{
+				queue.add(knoop.leftChild);
+			}
+
+			if(knoop.rightChild != null)
+			{
+				queue.add(knoop.rightChild);
+			}
+		}
+
+		return retList;
+	}
+
+	/* =============== Questions =============== */
+
+	public boolean isChild(BKnoop<E> node)
+	{
+		if (node == null || node.getParent() == null)
+		{
+			return false;
+		}
+		else
+		{
+			//System.out.println("Node parent: " + (node.getParent() == this));
+			return node.getParent() == this;
+		}
+	}
+
+	public boolean isAncestor(BKnoop<E> aNode)
+	{
+		BKnoop<E> ancestor = this;
+		while(ancestor != null && ancestor != aNode)
+		{
+			ancestor = ancestor.getParent();
+		}
+		return ancestor != null;
 	}
 
 	public int aantalKnopen()
@@ -160,38 +270,7 @@ public class BKnoop<E>
 		return Math.max(1 + leftChild.diepte(), 1 + rightChild.diepte());
 	}
 
-	/*
-		^^ Added content ^^
-	 */
-
-	// levelOrderToString() levert het resultaat van
-	// een level-order wandeling af in een string
-	public String levelOrderToString()
-	{
-		buffer = new StringBuffer();
-		//q = new ArrayDeque< BKnoop<E> >();
-		q = new LinkedList< BKnoop<E>>();
-		q.add(this);
-		levelOrder();
-		return buffer.toString();
-	}
-
-	private void levelOrder()
-	{
-		while(!q.isEmpty())
-		{
-			BKnoop<E> knoop = q.remove();
-			buffer.append(knoop.userObject.toString());
-			if(knoop.leftChild != null)
-			{
-				q.add(knoop.leftChild);
-			}
-			if(knoop.rightChild != null)
-			{
-				q.add(knoop.rightChild);
-			}
-		}
-	}
+	/* =============== CRUD =============== */
 
 	public void add(BKnoop<E> newChild)
 	{
@@ -207,31 +286,6 @@ public class BKnoop<E>
 		{
 			throw new IllegalArgumentException("Meer dan 2 kinderen");
 		}
-	}
-
-	public E get()
-	{
-		return userObject;
-	}
-
-	public void set(E element)
-	{
-		this.userObject = element;
-	}
-
-	public BKnoop<E> getLeftChild()
-	{
-		return leftChild;
-	}
-
-	public BKnoop<E> getRightChild()
-	{
-		return rightChild;
-	}
-
-	public BKnoop<E> getParent()
-	{
-		return parent;
 	}
 
 	public void insert(BKnoop<E> newChild, int childIndex)
@@ -265,29 +319,6 @@ public class BKnoop<E>
 		}
 	}
 
-	public boolean isChild(BKnoop<E> node)
-	{
-		if (node == null || node.getParent() == null)
-		{
-			return false;
-		}
-		else
-		{
-			//System.out.println("Node parent: " + (node.getParent() == this));
-			return node.getParent() == this;
-		}
-	}
-
-	public boolean isAncestor(BKnoop<E> aNode)
-	{
-		BKnoop<E> ancestor = this;
-		while(ancestor != null && ancestor != aNode)
-		{
-			ancestor = ancestor.getParent();
-		}
-		return ancestor != null;
-	}
-
 	public void remove(BKnoop<E> aChild)
 	{
 		if(aChild == null)
@@ -310,6 +341,33 @@ public class BKnoop<E>
 			rightChild.parent = null;
 			rightChild = null;
 		}
+	}
+
+	/* =============== Getters and setters =============== */
+
+	public E get()
+	{
+		return userObject;
+	}
+
+	public void set(E element)
+	{
+		this.userObject = element;
+	}
+
+	public BKnoop<E> getLeftChild()
+	{
+		return leftChild;
+	}
+
+	public BKnoop<E> getRightChild()
+	{
+		return rightChild;
+	}
+
+	public BKnoop<E> getParent()
+	{
+		return parent;
 	}
 
 	public String toString()

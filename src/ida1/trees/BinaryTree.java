@@ -6,6 +6,13 @@ package ida1.trees;
  */
 public class BinaryTree <E extends Comparable<E>> extends Tree<E>
 {
+	/**
+	 * Add an element to the tree
+	 *
+	 * Bumps counter
+	 *
+	 * @param element
+	 */
 	public void insert(E element)
 	{
 		// Edge case, this is the first insert.
@@ -32,6 +39,8 @@ public class BinaryTree <E extends Comparable<E>> extends Tree<E>
 	 */
 	private void insert(E element, BKnoop<E> node)
 	{
+		bumpCounter();
+
 		//System.out.println("Node :" + node.get());
 		//System.out.println("Element :" + element);
 
@@ -69,6 +78,13 @@ public class BinaryTree <E extends Comparable<E>> extends Tree<E>
 		}
 	}
 
+	/**
+	 * Delete element from tree
+	 *
+	 * Bumps counter
+	 *
+	 * @param element
+	 */
 	public void delete(E element)
 	{
 		if (root == null)
@@ -83,6 +99,8 @@ public class BinaryTree <E extends Comparable<E>> extends Tree<E>
 
 	private void delete(E element, BKnoop<E> node)
 	{
+		bumpCounter();
+
 		int comp = element.compareTo(node.get());
 
 		//System.out.println("comp: " + comp);
@@ -174,13 +192,36 @@ public class BinaryTree <E extends Comparable<E>> extends Tree<E>
 		BinaryTree<Integer> tree = new BinaryTree<Integer>();
 
 		tree.insert(1);
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
 		tree.insert(9);
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
 		tree.insert(3);
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
 		tree.insert(4);
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
 		tree.insert(5);
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
 		tree.insert(6);
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
 		tree.insert(0);
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+		
 		tree.insert(10);
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
 
 		System.out.println("Following lines should be the same");
 		System.out.println(tree.getRoot().preOrderToString());
@@ -218,5 +259,10 @@ public class BinaryTree <E extends Comparable<E>> extends Tree<E>
 		System.out.println("\nshow in order");
 		System.out.println(tree.getRoot().inOrderToString());
 
+	}
+
+	public static void main (String [] args)
+	{
+        test();
 	}
 }

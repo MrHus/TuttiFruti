@@ -9,6 +9,13 @@ package ida1.trees;
  */
 public class RBTree<E extends Comparable<E>> extends Tree<E>
 {
+	/**
+	 * Insert element to RBTree
+	 *
+	 * Bumps counter
+	 *
+	 * @param element
+	 */
 	public void insert(E element)
 	{
 		// Edge case, this is the first insert.
@@ -35,6 +42,8 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 	 */
 	private void insert(E element, RBKnoop<E> node)
 	{
+		bumpCounter();
+
 		//System.out.println("Node :" + node.get());
 		//System.out.println("Element :" + element);
 		
@@ -84,10 +93,14 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 	 *
 	 * See wikipedia for cases: http://en.wikipedia.org/wiki/Red%E2%80%93black_tree
 	 *
+	 * Bumps counter
+	 *
 	 * @param node The node that must be validated.
 	 */
 	private void insertValidator(RBKnoop<E> node)
 	{
+		bumpCounter();
+
 		// Case one: node's parent is null;
 		RBKnoop<E> parent = (RBKnoop)node.getParent();
 		if (parent == null)
@@ -151,6 +164,13 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 		}
 	}
 
+	/**
+	 * Delete element from RBTree
+	 *
+	 * Bumps counter
+	 *
+	 * @param element
+	 */
 	public void delete(E element)
 	{
 		if (root == null)
@@ -165,6 +185,8 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 
 	private void delete(E element, RBKnoop<E> node)
 	{
+		bumpCounter();
+
 		int comp = 1;
 		if (node.get() != null)
 		{
@@ -230,6 +252,8 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 	// node its deleting.
 	private RBKnoop<E> getLargestInLeftSubtree(RBKnoop <E> node)
 	{
+		bumpCounter();
+
 		RBKnoop <E> tree = (RBKnoop)node.getLeftChild();
 		if (tree == null)
 		{
@@ -258,12 +282,22 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 				{
 					tree = leftChildOfTree;
 				}
+
+				bumpCounter();
 			}
 		}
 	}
 
+	/**
+	 * Bumps counter
+	 *
+	 * @param node
+	 * @return
+	 */
 	private RBKnoop<E> getSmallestInRightSubtree(RBKnoop <E> node)
 	{
+		bumpCounter();
+
 		RBKnoop <E> tree = (RBKnoop)node.getRightChild();
 		if (tree == null)
 		{
@@ -292,6 +326,8 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 				{
 					tree = rightChildOfLeftTree;
 				}
+
+				bumpCounter();
 			}
 		}
 	}
@@ -336,8 +372,17 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 		}
 	}
 
+	/**
+	 * Note doesn't work properly;
+	 *
+	 * bumps Counter
+	 *
+	 * @param node
+	 */
 	private void deleteValidator(RBKnoop<E> node)
 	{
+		bumpCounter();
+
 		System.out.println("validating node: " + node);
 
 		//Case one: node is the new root, in that case we are done.
@@ -511,25 +556,58 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 
 		tree.insert(10);
 		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
 		tree.insert(1);
 		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
 		tree.insert(11);
 		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
 		tree.insert(12);
 		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
 		tree.insert(4);
 		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
 		tree.insert(9);
 		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
 		tree.insert(55);
 		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
 		tree.insert(66);
 		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
 		tree.insert(3);
 		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
 		tree.insert(7);
 		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
 		tree.insert(17);
+		System.out.println(tree.getRoot().preOrderToString());
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
 
 		System.out.println("\nNext pair of lines should be equal\n");
 		System.out.println(tree.getRoot().preOrderToString());
@@ -552,5 +630,10 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 		tree.delete(55);
 		System.out.println(tree.getRoot().preOrderToString());
 		//System.out.println("B:11 R:7 B:1     B:9   B:17 B:12       R:66");
+	}
+
+	public static void main (String [] args)
+	{
+        test();
 	}
 }

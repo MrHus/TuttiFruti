@@ -20,12 +20,16 @@ public class AVLTree<E extends Comparable<E>> extends Tree<E>
 	/**
 	 * Balance the tree.
 	 *
+	 * bumps Counter
+	 *
 	 * @param node		  The node that must get balanced (or not)
 	 * @param child		  Which child (side) was added.
 	 * @param childHeight The height of the child
 	 */
 	private void balance(BKnoop<E> node, int mode)
 	{
+		bumpCounter();
+
 		//System.out.println("Begin balance");
 		
 		if (node == null) // roots parent
@@ -115,6 +119,8 @@ public class AVLTree<E extends Comparable<E>> extends Tree<E>
 
 	private int balanceFactor(BKnoop<E> node)
 	{
+		bumpCounter();
+
 		// defaults, cant ask null object anything!
 		int leftHeight = 0;
 		int rightHeight = 0;
@@ -160,11 +166,15 @@ public class AVLTree<E extends Comparable<E>> extends Tree<E>
 	 * If the element already exists do nothing. Its a search
 	 * tree so duplicates are not allowed.
 	 *
+	 * Bumps counter
+	 *
 	 * @param element
 	 * @param node
 	 */
 	private void insert(E element, BKnoop<E> node)
 	{
+		bumpCounter();
+
 		//System.out.println("Node :" + node.get());
 		//System.out.println("Element :" + element);
 		
@@ -204,6 +214,11 @@ public class AVLTree<E extends Comparable<E>> extends Tree<E>
 		}	
 	}
 
+	/**
+	 * Bumps counter
+	 *
+	 * @param element
+	 */
 	public void delete(E element)
 	{
 		if (root == null)
@@ -218,6 +233,8 @@ public class AVLTree<E extends Comparable<E>> extends Tree<E>
 
 	private void delete(E element, BKnoop<E> node)
 	{
+		bumpCounter();
+
 		int comp = element.compareTo(node.get());
 
 		//System.out.println("comp: " + comp);
@@ -311,26 +328,36 @@ public class AVLTree<E extends Comparable<E>> extends Tree<E>
 	public static void test()
 	{
 		AVLTree tree = new AVLTree();
-
-		System.out.println("Following lines should be the same");
-
+	
 		tree.insert(3);
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
 		System.out.println(tree.getRoot().preOrderToString());
 		System.out.println("3");
 
 		tree.insert(2);
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
 		System.out.println(tree.getRoot().preOrderToString());
 		System.out.println("3 2");
 
 		tree.insert(1);
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
 		System.out.println(tree.getRoot().preOrderToString());
 		System.out.println("2 1 3");
 
 		tree.insert(4);
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
 		System.out.println(tree.getRoot().preOrderToString());
 		System.out.println("2 1 3 4");
 
 		tree.insert(5);
+		System.out.println("Counter = " + tree.getCounter());
+		tree.resetCounter();
+
+		System.out.println("Following lines should be the same");
 		System.out.println(tree.getRoot().preOrderToString());
 		System.out.println("2 1 4 3 5");
 
@@ -385,5 +412,10 @@ public class AVLTree<E extends Comparable<E>> extends Tree<E>
 		System.out.println("Contains: 2  - " + tree.contains(2));
 		System.out.println("Contains: 0  - " + tree.contains(0));
 		System.out.println("Contains: 55 - " + tree.contains(55));
+	}
+
+	public static void main (String [] args)
+	{
+        test();
 	}
 }
