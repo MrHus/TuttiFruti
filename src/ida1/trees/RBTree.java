@@ -553,4 +553,9 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 		System.out.println(tree.getRoot().preOrderToString());
 		//System.out.println("B:11 R:7 B:1     B:9   B:17 B:12       R:66");
 	}
+
+	public static void main (String [] args)
+	{
+        test();
+	}
 }

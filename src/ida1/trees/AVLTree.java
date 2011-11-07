@@ -386,4 +386,9 @@ public class AVLTree<E extends Comparable<E>> extends Tree<E>
 		System.out.println("Contains: 0  - " + tree.contains(0));
 		System.out.println("Contains: 55 - " + tree.contains(55));
 	}
+
+	public static void main (String [] args)
+	{
+        test();
+	}
 }

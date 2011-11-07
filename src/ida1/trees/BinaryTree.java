@@ -219,4 +219,9 @@ public class BinaryTree <E extends Comparable<E>> extends Tree<E>
 		System.out.println(tree.getRoot().inOrderToString());
 
 	}
+
+	public static void main (String [] args)
+	{
+        test();
+	}
 }
