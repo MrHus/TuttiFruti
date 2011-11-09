@@ -102,7 +102,8 @@ public class BucketSort<E extends Comparable<? super E>> implements SortAlgorith
             System.out.print(i + "  ");
         }
         System.out.println("");
-        char[] charArray = {'b', 'D', 'c', 'k', 'H', 's', 'A', 'W', 'V', 'q', 'L', 'Z', 'a'};
+
+		char[] charArray = {'b', 'D', 'c', 'k', 'H', 's', 'A', 'W', 'V', 'q', 'L', 'Z', 'a'};
 //        char[] charArray = {'z', 'c', 'A', 'b'};
         System.out.println("char array input: ");
         for(char c : charArray)

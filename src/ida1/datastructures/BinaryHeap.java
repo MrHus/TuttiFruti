@@ -89,13 +89,17 @@ public class BinaryHeap<E extends Comparable<E>>
         heapify();
     }
 
-    public void delete()
+    public E delete()
     {
         //System.out.println("Delete first node");
+		E retVal = list.get(0);
+
         list.set(0, list.get(list.size() - 1));
         list.remove(list.size() - 1);
 
 		checkHeapAfterDelete(0);
+
+		return retVal;
     }
 
     private void checkHeapAfterDelete(int index)
