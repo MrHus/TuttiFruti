@@ -26,7 +26,7 @@ public class TreeWithDictionary
 {
     public void loadDictionaryIntoTree(String file, Tree tree) throws IOException
     {
-        InputStream is = new BufferedInputStream(new FileInputStream("src\\ida1\\" + file));
+        InputStream is = new BufferedInputStream(new FileInputStream("src/ida1/" + file));
 
         try
         {
@@ -51,7 +51,7 @@ public class TreeWithDictionary
     {
         try
         {
-            File file = new File("src\\ida1\\Numbers.dic");
+            File file = new File("src/ida1/Numbers.dic");
             PrintStream pin = new PrintStream(new BufferedOutputStream(new FileOutputStream(file.toString(), true)), true);
             System.setOut(pin);
             int count = 0;
