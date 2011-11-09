@@ -144,7 +144,7 @@ public class BinaryHeap<E extends Comparable<E>>
             return;
         }	
 
-		E parentValue	= list.get(getParentIndex(index));
+		E thisValue		= list.get(index);
 		E leftValue		= list.get(leftChild);
 
         // If the leftChild is not in bounds and the rightchild is definately not in bounds.
@@ -153,7 +153,7 @@ public class BinaryHeap<E extends Comparable<E>>
         {
 			if (heapType == Type.MINHEAP)
 			{
-				if(leftValue.compareTo(parentValue) > 0)
+				if(leftValue.compareTo(thisValue) < 0)
 				{
 					this.swap(index, leftChild);
 					return;
@@ -161,7 +161,7 @@ public class BinaryHeap<E extends Comparable<E>>
 			}
 			else
 			{
-				if(leftValue.compareTo(parentValue) < 0)
+				if(leftValue.compareTo(thisValue) > 0)
 				{
 					this.swap(index, leftChild);
 					return;
@@ -171,19 +171,24 @@ public class BinaryHeap<E extends Comparable<E>>
         else if (rightChildInBounds)
         {
 			E rightValue = list.get(rightChild);
-			
-			// If one one child is smaller than the parent (either left or right)
-			if(leftValue.compareTo(parentValue) < 0 || rightValue.compareTo(parentValue) > 0)
-            {
-				// Pick the biggest of the two and swap with parent
-                int compLeftRight = leftValue.compareTo(rightValue);
 
-				//System.out.println("leftValue: " + leftValue + " rightValue: " + rightValue);
-				//System.out.println("compLeftWithRight: " + compLeftRight);
+			//System.out.println(list);
+			//System.out.println("parentValue: " + thisValue + " leftValue: " + leftValue + " rightValue: " + rightValue);
+			//System.out.println("leftCompareParent:" + leftValue.compareTo(thisValue));
+			//System.out.println("rightCompareParent:" + rightValue.compareTo(thisValue));
 
-				if(compLeftRight < 0)
+			if (heapType == Type.MINHEAP)
+			{
+				// If one one child is smaller than the parent (either left or right)
+				if(leftValue.compareTo(thisValue) < 0 || rightValue.compareTo(thisValue) < 0)
 				{
-					if (heapType == Type.MINHEAP)
+					// Pick the smallest of the two and swap with parent
+					int compLeftRight = leftValue.compareTo(rightValue);
+
+					//System.out.println("leftValue: " + leftValue + " rightValue: " + rightValue);
+					//System.out.println("compLeftWithRight: " + compLeftRight);
+
+					if(compLeftRight < 0)
 					{
 						this.swap(index, leftChild);
 						//System.out.println(list);
@@ -196,9 +201,19 @@ public class BinaryHeap<E extends Comparable<E>>
 						checkHeapAfterDelete(rightChild);
 					}
 				}
-				else
+			}
+			else
+			{
+				// If one one child is bigger than the parent (either left or right)
+				if(leftValue.compareTo(thisValue) > 0 || rightValue.compareTo(thisValue) > 0)
 				{
-					if (heapType == Type.MINHEAP)
+					// Pick the biggest of the two and swap with parent
+					int compLeftRight = leftValue.compareTo(rightValue);
+
+					//System.out.println("leftValue: " + leftValue + " rightValue: " + rightValue);
+					//System.out.println("compLeftWithRight: " + compLeftRight);
+
+					if(compLeftRight < 0)
 					{
 						this.swap(index, rightChild);
 						//System.out.println(list);
@@ -211,7 +226,7 @@ public class BinaryHeap<E extends Comparable<E>>
 						checkHeapAfterDelete(leftChild);
 					}
 				}
-            }
+			}
         }
     }
 
@@ -306,6 +321,22 @@ public class BinaryHeap<E extends Comparable<E>>
 		heap.delete();
         System.out.println("After delete: " + heap.getList());
 		System.out.println("Expected: []");
+
+		int[] ints2 = {4, 4, 3, 3, 1, 1};
+        intList = new ArrayList<Integer>();
+        for (int index = 0; index < ints2.length; index++)
+        {
+            intList.add(ints2[index]);
+        }
+
+		System.out.println("\nChecking minheap");
+        System.out.println("IN: " + intList);
+        heap = new BinaryHeap<Integer>(Type.MINHEAP, intList);
+        System.out.println("OUT: " + heap.getList());
+		System.out.println("Expected: 1 3 1 4 3 4");
+
+		System.out.println(new Integer(7).compareTo(4));
+
 	}
 
 	public static void main (String [] args)
