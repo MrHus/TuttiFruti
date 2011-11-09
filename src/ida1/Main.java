@@ -1,6 +1,6 @@
 package ida1;
 
-import ida1.datastructures.HashMap;
+import ida1.datastructures.BinaryHeap;
 
 /**
  *
@@ -14,6 +14,6 @@ public class Main
      */
     public static void main(String[] args)
 	{
-		HashMap.test();
+		BinaryHeap.test();
     }
 }
