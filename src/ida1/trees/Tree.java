@@ -300,4 +300,7 @@ public abstract class Tree <E extends Comparable<E>>
 	{
 		counter += 1;
 	}
+
+    public abstract void insert(E element);
+    public abstract void delete(E element);
 }
