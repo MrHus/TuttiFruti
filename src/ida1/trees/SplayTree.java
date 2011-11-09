@@ -105,7 +105,7 @@ public class SplayTree<E extends Comparable<E>> extends Tree<E>
 
 		//System.out.println("comp: " + comp);
 
-		if (comp == -1)
+		if (comp <= -1)
 		{
 			//System.out.println("Comp -1");
 
@@ -121,7 +121,7 @@ public class SplayTree<E extends Comparable<E>> extends Tree<E>
 				insert(element, node.getLeftChild());
 			}
 		}
-		else if (comp == 1)
+		else if (comp >= 1)
 		{
 			//System.out.println("Comp 1");
 
@@ -161,7 +161,7 @@ public class SplayTree<E extends Comparable<E>> extends Tree<E>
 
 		//System.out.println("comp: " + comp);
 
-		if (comp == -1)
+		if (comp <= -1)
 		{
 			//System.out.println("Comp -1");
             if(node.getLeftChild() == null)
@@ -175,7 +175,7 @@ public class SplayTree<E extends Comparable<E>> extends Tree<E>
                 delete(element, node.getLeftChild());
             }
 		}
-		else if (comp == 1)
+		else if (comp >= 1)
 		{
 			//System.out.println("Comp 1");
             if(node.getRightChild() == null)
@@ -290,7 +290,7 @@ public class SplayTree<E extends Comparable<E>> extends Tree<E>
 	{
 		int comp = element.compareTo(node.get());
 
-		if (comp == -1)
+		if (comp <= -1)
 		{
 			if(node.getLeftChild() == null)
 			{
@@ -302,7 +302,7 @@ public class SplayTree<E extends Comparable<E>> extends Tree<E>
 				return contains(element, node.getLeftChild());
 			}
 		}
-		else if (comp == 1)
+		else if (comp >= 1)
 		{
 			if(node.getRightChild() == null)
 			{

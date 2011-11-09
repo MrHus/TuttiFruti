@@ -48,7 +48,7 @@ public class BinaryTree <E extends Comparable<E>> extends Tree<E>
 
 		//System.out.println("comp: " + comp);
 
-		if (comp == -1)
+		if (comp <= -1)
 		{
 			//System.out.println("Comp -1");
 
@@ -62,7 +62,7 @@ public class BinaryTree <E extends Comparable<E>> extends Tree<E>
 				insert(element, node.getLeftChild());
 			}
 		}
-		else if (comp == 1)
+		else if (comp >= 1)
 		{
 			//System.out.println("Comp 1");
 
@@ -105,12 +105,12 @@ public class BinaryTree <E extends Comparable<E>> extends Tree<E>
 
 		//System.out.println("comp: " + comp);
 
-		if (comp == -1)
+		if (comp <= -1)
 		{
 			//System.out.println("Comp -1");
 			delete(element, node.getLeftChild());
 		}
-		else if (comp == 1)
+		else if (comp >= 1)
 		{
 			//System.out.println("Comp 1");
 			delete(element, node.getRightChild());
