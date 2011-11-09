@@ -1,7 +1,5 @@
 package ida1;
 
-import ida1.datastructures.BinaryHeap;
-
 /**
  *
  * @author maartenhus
@@ -14,6 +12,6 @@ public class Main
      */
     public static void main(String[] args)
 	{
-		BinaryHeap.test();
+		TreeWithDictionary.test();
     }
 }

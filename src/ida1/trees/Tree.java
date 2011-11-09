@@ -186,9 +186,14 @@ public abstract class Tree <E extends Comparable<E>>
 	{
 		bumpCounter();
 
+        if(node.get() == null)
+        {
+            return false;
+        }
+
 		int comp = element.compareTo(node.get());
 
-		if (comp == -1)
+		if (comp <= -1)
 		{
 			if(node.getLeftChild() == null)
 			{
@@ -199,7 +204,7 @@ public abstract class Tree <E extends Comparable<E>>
 				return contains(element, node.getLeftChild());
 			}
 		}
-		else if (comp == 1)
+		else if (comp >= 1)
 		{
 			if(node.getRightChild() == null)
 			{

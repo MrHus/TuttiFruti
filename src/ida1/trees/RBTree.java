@@ -53,7 +53,7 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 			comp = element.compareTo(node.get());
 		}
 
-		if (comp == -1)
+		if (comp <= -1)
 		{
 			//System.out.println("Comp -1");
 
@@ -70,7 +70,7 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 				insert(element, (RBKnoop)node.getLeftChild());
 			}
 		}
-		else if (comp == 1)
+		else if (comp >= 1)
 		{
 			//System.out.println("Comp 1");
 
@@ -195,12 +195,12 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 
 		//System.out.println("comp: " + comp);
 
-		if (comp == -1)
+		if (comp <= -1)
 		{
 			//System.out.println("Comp -1");
 			delete(element, (RBKnoop)node.getLeftChild());
 		}
-		else if (comp == 1)
+		else if (comp >= 1)
 		{
 			//System.out.println("Comp 1");
 			delete(element, (RBKnoop)node.getRightChild());

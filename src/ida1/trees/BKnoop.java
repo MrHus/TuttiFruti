@@ -243,7 +243,7 @@ public class BKnoop<E>
 	{
 		if(userObject == null)
 		{
-			System.out.println("userobject null");
+//			System.out.println("userobject null");
 			return -1; //lege boom
 		}
 
