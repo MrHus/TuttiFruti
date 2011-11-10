@@ -12,10 +12,12 @@ public class Main
         Chocobo.start();
         TreeWithDictionary.test();
         Chocobo.stop();
-        System.out.println("Memory usage in bytes: " + Chocobo.GetAllocatedMemory());
+
+		System.out.println("Memory usage in bytes: " + Chocobo.GetAllocatedMemory());
         System.out.println("Elapsed time in miliseconds: " + Chocobo.getTimeElapsed());
         System.out.println("Elapsed time in nanoseconds: " + Chocobo.getNanoTimeElapsed());
-        Chocobo.reset();
+
+		Chocobo.reset();
     }
 
     /**
@@ -23,6 +25,7 @@ public class Main
      */
     public static void main(String[] args)
 	{
-        MrRoboto.test();
+        Main main = new Main();
+		main.performanceTest();
     }
 }

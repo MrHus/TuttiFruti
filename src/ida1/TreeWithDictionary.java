@@ -76,7 +76,7 @@ public class TreeWithDictionary
         TreeWithDictionary loader = new TreeWithDictionary();
         ArrayList<Tree<String>> treelist = new ArrayList<Tree<String>>();
         treelist.add(new AVLTree<String>());
-//        treelist.add(new BinaryTree<String>()); //Doesn't work with Dutch.dic, has insert problem.
+        treelist.add(new BinaryTree<String>()); //Doesn't work with Dutch.dic, has insert problem.
         treelist.add(new RBTree<String>());
         treelist.add(new SplayTree<String>());
 
@@ -87,12 +87,29 @@ public class TreeWithDictionary
             System.out.println("Start Testcase\n\n");
             try
             {
-                loader.loadDictionaryIntoTree("Dutch.dic", t);
+                loader.loadDictionaryIntoTree("smallDutch.dic", t);
             }
             catch(IOException e)
             {
                 System.out.println(e);
             }
+
+			if (t instanceof AVLTree)
+			{
+				System.out.println("AVLTree");
+			}
+			else if (t instanceof RBTree)
+			{
+				System.out.println("RBTree");
+			}
+			else if (t instanceof SplayTree)
+			{
+				System.out.println("SplayTree");
+			}
+			else
+			{
+				System.out.println("BinaryTree");
+			}
 
             System.out.println("Get counter");
             System.out.println(t.getCounter());
@@ -104,47 +121,24 @@ public class TreeWithDictionary
             System.out.println(t.getRoot().getLeftChild());
 
             System.out.println("Get diepte");
-            if(stringDict && t instanceof SplayTree)
-            {
-                System.out.println("------------diepte() will generate a StackOverflowError.");
-            }
-            else
-            {
-                System.out.println(t.getRoot().diepte());
-            }
+            
+            System.out.println(t.getRoot().diepte());
 
             System.out.println("Get aantalBlad");
             System.out.println(t.getRoot().aantalBlad());
 
             System.out.println("Get aantalKnopen");
-            if(stringDict && t instanceof SplayTree)
-            {
-                System.out.println("------------aantalKnopen() will generate a StackOverflowError.");
-            }
-            else
-            {
-                System.out.println(t.getRoot().aantalKnopen());
-            }
+            
+            System.out.println(t.getRoot().aantalKnopen()); 
 
-            System.out.println("Find word: listlaften");
-            if(stringDict && t instanceof SplayTree)
-            {
-                System.out.println("-----------contains() will generate a StackOverflowError.");
-            }
-            else
-            {
-                System.out.println(t.contains("liflaften"));
-            }
+            System.out.println("Find word: aanvullingsbegroting");
+           
+            System.out.println(t.contains("aanvullingsbegroting"));
 
             System.out.println("Find non existing word: Cornel");
-            if(stringDict && t instanceof SplayTree)
-            {
-                System.out.println("-----------contains() will generate a StackOverflowError.");
-            }
-            else
-            {
-                System.out.println(t.contains("Cornel"));
-            }
+           
+            System.out.println(t.contains("Cornel"));
+            
             System.out.println("Current root");
             System.out.println(t.getRoot());
 
