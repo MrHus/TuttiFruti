@@ -37,7 +37,8 @@ public class MrRoboto
             Chocobo.start();
             try
             {
-                MrRoboto.loadDictionaryIntoTree("smallDutch.dic", t);
+                MrRoboto.loadDictionaryIntoTree("newDutch.dic", t);
+//                MrRoboto.loadDictionaryIntoTree("smallDutch.dic", t);
 //                MrRoboto.loadDictionaryIntoTree("Dutch.dic", t); //Won't work with BinaryTree, too many items == StackOverflow
 //                MrRoboto.loadDictionaryIntoTree("dict.txt", t); //Won't work with BinaryTree, too many items == StackOverflow
             }
@@ -82,7 +83,8 @@ public class MrRoboto
         {
             try
             {
-                MrRoboto.loadDictionaryIntoTree("smallDutch.dic", t);
+                MrRoboto.loadDictionaryIntoTree("newDutch.dic", t);
+//                MrRoboto.loadDictionaryIntoTree("smallDutch.dic", t);
 //                MrRoboto.loadDictionaryIntoTree("Dutch.dic", t); //Won't work with BinaryTree and SplayTree, too many items == StackOverflow
 //                MrRoboto.loadDictionaryIntoTree("dict.txt", t); //Won't work with BinaryTree and SplayTree, too many items == StackOverflow
             }
@@ -125,7 +127,8 @@ public class MrRoboto
         {
             try
             {
-                MrRoboto.loadDictionaryIntoTree("smallDutch.dic", t);
+                MrRoboto.loadDictionaryIntoTree("newDutch.dic", t);
+//                MrRoboto.loadDictionaryIntoTree("smallDutch.dic", t);
 //                MrRoboto.loadDictionaryIntoTree("Dutch.dic", t); //Won't work with BinaryTree and SplayTree, too many items == StackOverflow
 //                MrRoboto.loadDictionaryIntoTree("dict.txt", t); //Won't work with BinaryTree and SplayTree, too many items == StackOverflow
             }

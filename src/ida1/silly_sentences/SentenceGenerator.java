@@ -22,7 +22,7 @@ public class SentenceGenerator
     public SentenceGenerator(String[] dictionaryFiles)
     {
         dictionary = new HashMap<String, HashMap<String, String>>(dictionaryFiles.length);
-        documentPath = "src\\ida1\\silly_sentences\\";
+        documentPath = "src/ida1/silly_sentences/";
 
         try
         {
@@ -77,30 +77,6 @@ public class SentenceGenerator
             i++;
         }
         return "";
-    }
-
-    public int countLines(String filename) throws IOException
-    {
-        Random r = new Random();
-        InputStream is = new BufferedInputStream(new FileInputStream(documentPath + filename + ".txt"));
-
-        byte[] c = new byte[1024];
-        int count = 0;
-        int readChars = 0;
-
-        //Counts every line
-        while((readChars = is.read(c)) != -1)
-        {
-            for(int i = 0; i < readChars; ++i)
-            {
-                if(c[i] == '\n')
-                {
-                    ++count;
-                }
-            }
-        }
-        is.close();
-        return count;
     }
 
     public void fileToHash(String filename, HashMap map) throws IOException
