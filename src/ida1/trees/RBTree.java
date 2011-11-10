@@ -188,6 +188,12 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 		bumpCounter();
 
 		int comp = 1;
+
+        if(node == null)
+        {
+            return;
+        }
+
 		if (node.get() != null)
 		{
 			comp = element.compareTo(node.get());
