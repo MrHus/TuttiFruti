@@ -8,11 +8,11 @@ public class Main
 {
     public void performanceTest()
     {
-        Chocobo.printValues();
+        Chocobo.printPerformance();
         Chocobo.start();
         TreeWithDictionary.test();
         Chocobo.stop();
-        System.out.println("Memory usage in bytes: " + Chocobo.getMemoryUsage());
+        System.out.println("Memory usage in bytes: " + Chocobo.GetAllocatedMemory());
         System.out.println("Elapsed time in miliseconds: " + Chocobo.getTimeElapsed());
         System.out.println("Elapsed time in nanoseconds: " + Chocobo.getNanoTimeElapsed());
         Chocobo.reset();
@@ -23,7 +23,6 @@ public class Main
      */
     public static void main(String[] args)
 	{
-        Main main = new Main();
-		main.performanceTest();
+        MrRoboto.test();
     }
 }

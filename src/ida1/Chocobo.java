@@ -11,12 +11,15 @@ public class Chocobo
     public static long endTime = 0;
     public static long startNanoTime = 0;
     public static long endNanoTime = 0;
-    public static long startMemory = 0;
-    public static long endMemory = 0;
+    public static long startFreeMemory = 0;
+    public static long endFreeMemory = 0;
+    public static long startAllocatedMemory = 0;
+    public static long endAllocatedMemory = 0;
 
     public static void start()
     {
-        startMemory = Runtime.getRuntime().freeMemory();
+        startFreeMemory = Runtime.getRuntime().freeMemory();
+        startAllocatedMemory = Runtime.getRuntime().totalMemory();
         startTime = System.currentTimeMillis();
         startNanoTime = System.nanoTime();
     }
@@ -25,14 +28,22 @@ public class Chocobo
     {
         endTime = System.currentTimeMillis();
         endNanoTime = System.nanoTime();
-        endMemory = Runtime.getRuntime().freeMemory();
+        endFreeMemory = Runtime.getRuntime().freeMemory();
+        endAllocatedMemory = Runtime.getRuntime().totalMemory();
     }
 
     public static long getMemoryUsage()
     {
 //        System.out.println("StartMemory: " + startMemory);
 //        System.out.println("EndMemory: " + endMemory);
-        return startMemory - endMemory;
+        return startFreeMemory - endFreeMemory;
+    }
+
+    public static long GetAllocatedMemory()
+    {
+//        System.out.println("StartMemory: " + startMemory);
+//        System.out.println("EndMemory: " + endMemory);
+        return endAllocatedMemory - startAllocatedMemory;
     }
 
     public static long getTimeElapsed()
@@ -49,12 +60,27 @@ public class Chocobo
         return endNanoTime - startNanoTime;
     }
 
-    public static void collectGarbage()
+    public static void printPerformance()
     {
-        Runtime.getRuntime().gc();
+        System.out.println("Memory Usage: " + getMemoryUsage());
+        System.out.println("Allocated memory: " + GetAllocatedMemory());
+        System.out.println("Time elapsed: " + getTimeElapsed());
+        System.out.println("Nanotime elapsed: " + getNanoTimeElapsed());
     }
 
-    public static void printValues()
+    public static void printRawValues()
+    {
+        System.out.println("startFreeMemory: " + startFreeMemory);
+        System.out.println("endFreeMemory: " + endFreeMemory);
+        System.out.println("startAllocatedMemory: " + startAllocatedMemory);
+        System.out.println("endAllocatedMemory: " + endAllocatedMemory);
+        System.out.println("startTime: " + startTime);
+        System.out.println("endTime: " + endTime);
+        System.out.println("startNanoTime: " + startNanoTime);
+        System.out.println("endNanoTime: " + endNanoTime);
+    }
+
+    public static void printSomeTestValues()
     {
         System.out.println("MaxMemory: " + Runtime.getRuntime().maxMemory());
         System.out.println("AllocatedMemory: " + Runtime.getRuntime().totalMemory());
@@ -67,6 +93,11 @@ public class Chocobo
         System.out.println("Time:" + System.currentTimeMillis());
     }
 
+    public static void collectGarbage()
+    {
+        Runtime.getRuntime().gc();
+    }
+
     /**
      * Also clears any garbage around.
      */
@@ -74,8 +105,10 @@ public class Chocobo
     {
         startTime = 0;
         endTime = 0;
-        startMemory = 0;
-        endMemory = 0;
+        startFreeMemory = 0;
+        endFreeMemory = 0;
+        startAllocatedMemory = 0;
+        endAllocatedMemory = 0;
         Runtime.getRuntime().gc();
     }
 }
