@@ -75,8 +75,9 @@ public class TreeWithDictionary
     {
         TreeWithDictionary loader = new TreeWithDictionary();
         ArrayList<Tree<String>> treelist = new ArrayList<Tree<String>>();
-        treelist.add(new AVLTree<String>());
-        treelist.add(new BinaryTree<String>()); //Doesn't work with Dutch.dic, has insert problem.
+       
+		treelist.add(new BinaryTree<String>()); //Doesn't work with Dutch.dic, has insert problem.
+		treelist.add(new AVLTree<String>());
         treelist.add(new RBTree<String>());
         treelist.add(new SplayTree<String>());
 
@@ -84,6 +85,8 @@ public class TreeWithDictionary
 
         for(Tree<String> t : treelist)
         {
+			Chocobo.start();
+
             System.out.println("Start Testcase\n\n");
             try
             {
@@ -142,7 +145,10 @@ public class TreeWithDictionary
             System.out.println("Current root");
             System.out.println(t.getRoot());
 
-            System.out.println("\nEnd testcase\n\n");
+            System.out.println("\nEnd testcase\n");
+			Chocobo.stop();
+			Chocobo.printPerformance();
+			Chocobo.reset();
         }
     }
 
