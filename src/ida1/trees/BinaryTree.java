@@ -101,6 +101,11 @@ public class BinaryTree <E extends Comparable<E>> extends Tree<E>
 	{
 		bumpCounter();
 
+        if(node == null)
+        {
+            return;
+        }
+
 		int comp = element.compareTo(node.get());
 
 		//System.out.println("comp: " + comp);

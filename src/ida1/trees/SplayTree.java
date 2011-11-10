@@ -157,6 +157,11 @@ public class SplayTree<E extends Comparable<E>> extends Tree<E>
 
 	private void delete(E element, BKnoop<E> node)
 	{
+        if(node == null)
+        {
+            return;
+        }
+
         int comp = element.compareTo(node.get());
 
 		//System.out.println("comp: " + comp);
