@@ -33,9 +33,9 @@ public class Runlength
 				builder.append(fq.character);
 			}
 
-			// 00 will represent a line break;
-			builder.append(0);
-			builder.append(0);
+			// /n will represent a line break. This is purposely not \n !
+			// Since that will put spaces in the file that is going to get written.
+			builder.append("/n");
 		}
 
 		return builder.toString();
@@ -79,9 +79,73 @@ public class Runlength
 		return encodedLines;
 	}
 
-	public String decode()
+	public String decode(String encodedString)
 	{
-		return "FUCK YOU";
+		StringBuilder decodedString = new StringBuilder();
+
+		boolean canExpectNewLine = false;
+		int counter = 0;
+		
+		for (int i = 0; i < encodedString.length(); i++)
+		{
+			if (Character.isDigit(encodedString.charAt(i)))
+			{
+				counter += 1;
+			}
+			else
+			{
+				// '/n' is code for newline. '/n' can only occur after a 'frequency character' sequence.
+				if (encodedString.charAt(i) == '/')
+				{
+					if (i + 1 < encodedString.length())
+					{
+						if (encodedString.charAt(i + 1) == 'n')
+						{
+							decodedString.append("\n");
+							i += 1;
+						}
+						else
+						{
+							applyFrequency(encodedString, decodedString, i, counter);
+							counter = 0;
+						}
+					}
+					else
+					{
+						applyFrequency(encodedString, decodedString, i, counter);
+						counter = 0;
+					}
+				}
+				else
+				{
+					applyFrequency(encodedString, decodedString, i, counter);
+					counter = 0;
+				}
+			}
+		}
+
+		return decodedString.toString();
+	}
+
+	private void applyFrequency(String encodedString, StringBuilder decodedString, int i, int counter)
+	{
+		//System.out.println("i: " + i + " counter " + counter);
+
+		String frequencyString = encodedString.substring(i - counter, i);
+
+		//System.out.println("frequencyString:" + frequencyString);
+
+		int frequency = Integer.parseInt(frequencyString);
+
+		//System.out.println("Char at index: <" + encodedString.charAt(i) + ">");
+
+		char characterToRepeat = encodedString.charAt(i);
+		for (int j = 0; j < frequency; j++)
+		{
+			decodedString.append(characterToRepeat);
+		}
+
+		//System.out.println("decodedString: " + decodedString.toString());
 	}
 
 	public void writeToFile(String filename, String encodedString)
@@ -91,22 +155,9 @@ public class Runlength
 			String documentPath = "src/ida1/runlength/";
 			FileOutputStream fos = new FileOutputStream(documentPath + filename +".dat");
 
-			/*
-			 * To write byte array to a file, use
-			 * void write(byte[] bArray) method of Java FileOutputStream class.
-			 *
-			 * This method writes given byte array to a file.
-			 */
-
 			byte[] bytes = encodedString.getBytes();
-			System.out.println("Bytes: " + bytes);
+			//System.out.println("Bytes: " + bytes + " length " + bytes.length);
 			fos.write(bytes);
-
-			/*
-			 * Close FileOutputStream using,
-			 * void close() method of Java FileOutputStream class.
-			 *
-			 */
 
 			fos.close();
 		}

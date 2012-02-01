@@ -9,9 +9,11 @@ public class Main
 	public static void main (String[] args)
 	{
 		Runlength rl = new Runlength();
-		String encodedMap1 = rl.encode("map1");
-		System.out.println(encodedMap1);
+		String map = rl.encode("map2");
+		System.out.println(map);
 
-		rl.writeToFile("map1encoded", encodedMap1);
+		rl.writeToFile("map", map);
+
+		System.out.println(rl.decode(map));
 	}
 }
