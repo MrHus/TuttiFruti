@@ -177,7 +177,6 @@ public class RobotRunner
 
 	public static void random100Test()
 	{
-
 		String[] random100 = new String[100];
         InputStream is;
 		try

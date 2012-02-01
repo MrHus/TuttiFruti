@@ -1,0 +1,14 @@
+ ------                             -  Wall
+ |....|      ############           #  Unlit hallway
+ |....|      #          #           .  Lit area
+ |.$..+########         #           $  Some quantity of gold
+ |....|       #      ---+---        +  A door
+ ------       #      |.....|        |  Wall
+              #      |.!...|        !  A magic potion
+              #      |.....|
+              #      |..@..|        @  The adventurer
+   ----       #      |.....|
+   |..|       #######+..D..|        D  A red dragon
+   |<.+###    #      |.....|        <  Stairs to a higher level
+   ----  #    #      |.?...|        ?  A magic scroll
+         ######      -------
