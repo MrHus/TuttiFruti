@@ -5,7 +5,7 @@ package ida1.algorithms.search;
  * The generic implementation uses compareTo() to find the target element
  * in the array.
  *
- * @author Maarten Hus, Cornel Alders
+ * @author Maarten Hus
  */
 public class LinearSearch<E extends Comparable<? super E>> implements SearchAlgorithm<E>
 {

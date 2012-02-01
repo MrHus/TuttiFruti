@@ -2,7 +2,7 @@ package stack;
 
 /**
  *
- * @author Cornel Alders
+ * @author Maarten Hus
  */
 public class TestListStack
 {

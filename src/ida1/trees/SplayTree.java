@@ -14,7 +14,7 @@ package ida1.trees;
  * to be deleted. The current implementation uses the LargestValueInLeftSubtree.
  * The other uses the LowestValueInRightSubtree (not implemented).
  *
- * @author Cornel Alders, Maarten Hus
+ * @author Maarten Hus
  */
 public class SplayTree<E extends Comparable<E>> extends Tree<E>
 {
@@ -324,6 +324,11 @@ public class SplayTree<E extends Comparable<E>> extends Tree<E>
             splay(node);
 			return true;
 		}
+	}
+
+	public String toString()
+	{
+		return "SplayTree";
 	}
 
 	public static void test()

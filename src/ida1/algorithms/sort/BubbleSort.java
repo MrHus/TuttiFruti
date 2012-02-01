@@ -4,7 +4,7 @@ package ida1.algorithms.sort;
  * Implementation of the BubbleSort algorithm.
  * Sorts the array in ascending order. (0 to 9, A to Z).
  *
- * @author Maarten Hus, Cornel Alders
+ * @author Maarten Hus
  */
 public class BubbleSort<E extends Comparable<? super E>> implements SortAlgorithm<E>
 {

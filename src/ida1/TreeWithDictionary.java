@@ -20,7 +20,7 @@ import java.util.Random;
 
 /**
  *
- * @author Cornel Alders
+ * @author Maarten Hus
  */
 public class TreeWithDictionary
 {
@@ -85,7 +85,7 @@ public class TreeWithDictionary
 
         for(Tree<String> t : treelist)
         {
-			Chocobo.start();
+			SystemAnalyser.start();
 
             System.out.println("Start Testcase\n\n");
             try
@@ -146,9 +146,9 @@ public class TreeWithDictionary
             System.out.println(t.getRoot());
 
             System.out.println("\nEnd testcase\n");
-			Chocobo.stop();
-			Chocobo.printPerformance();
-			Chocobo.reset();
+			SystemAnalyser.stop();
+			SystemAnalyser.printPerformance();
+			SystemAnalyser.reset();
         }
     }
 

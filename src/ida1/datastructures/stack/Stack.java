@@ -6,7 +6,7 @@ package stack;
 
 /**
  *
- * @author Cornel
+ * @author Maarten Hus
  */
 public interface Stack
 {

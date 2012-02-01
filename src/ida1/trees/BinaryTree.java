@@ -192,6 +192,11 @@ public class BinaryTree <E extends Comparable<E>> extends Tree<E>
 		}
 	}
 
+	public String toString()
+	{
+		return "BinaryTree";
+	}
+
 	public static void test()
 	{
 		BinaryTree<Integer> tree = new BinaryTree<Integer>();

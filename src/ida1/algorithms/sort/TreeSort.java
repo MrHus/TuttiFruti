@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Cornel Alders
+ * @author Maarten Hus
  */
 public class TreeSort<E extends Comparable<? super E>> implements SortAlgorithm<E>
 {

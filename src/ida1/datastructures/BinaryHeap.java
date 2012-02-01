@@ -6,7 +6,7 @@ import java.util.ArrayList;
  *
  * Simulation http://people.ksp.sk/~kuko/bak/index.html
  *
- * @author Cornel Alders
+ * @author Maarten Hus
  */
 public class BinaryHeap<E extends Comparable<E>>
 {

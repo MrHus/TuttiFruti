@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  *
- * @author Cornel Alders
+ * @author Maarten Hus
  */
 public class SentenceGenerator
 {
@@ -48,8 +48,8 @@ public class SentenceGenerator
             tmpWord = wordArray[x];
 //            System.out.println(tmpWord);
             if(tmpWord.toUpperCase().equals(tmpWord) &&
-                (tmpWord.equals("PERSON") || tmpWord.equals("PROPERTY") || tmpWord.equals("ACTIVITY") ||
-                 tmpWord.equals("DO") || tmpWord.equals("DOES")))
+                (tmpWord.equals("ACTIE") || tmpWord.equals("DOEL") || tmpWord.equals("PERSONEN") ||
+                 tmpWord.equals("PERSOON")))
             {
                 String newWord = randomWordFromDictionary(tmpWord);
                 s = s.replaceFirst(tmpWord, newWord);

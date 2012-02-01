@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *  The above statement results in an Uncompiable source code error.
  *
  * @wiki http://en.wikipedia.org/wiki/Merge_sort
- * @author Maarten Hus, Cornel Alders
+ * @author Maarten Hus
  */
 public class MergeSort<E extends Comparable<? super E>> implements SortAlgorithm<E>
 {

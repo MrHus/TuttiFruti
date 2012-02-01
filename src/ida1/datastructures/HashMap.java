@@ -23,7 +23,7 @@ import java.util.Set;
  *
  * remove("B") -> 12 returns the value that was "B"
  *
- * @author Cornel Alders, Maarten Hus
+ * @author Maarten Hus
  */
 public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>
 {

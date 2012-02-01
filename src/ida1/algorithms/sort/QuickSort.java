@@ -15,7 +15,7 @@ import java.util.Arrays;
  * creation problem above however, you won't be able to use the generic sort()
  * method unless you do some typecasting (if that is even possible with generics).
  *
- * @author Maarten Hus, Cornel Alders
+ * @author Maarten Hus
  */
 public class QuickSort<E extends Comparable<? super E>> implements SortAlgorithm<E>
 {

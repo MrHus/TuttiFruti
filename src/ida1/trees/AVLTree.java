@@ -330,6 +330,11 @@ public class AVLTree<E extends Comparable<E>> extends Tree<E>
 		}
 	}
 
+	public String toString()
+	{
+		return "AVLTree";
+	}
+
 	public static void test()
 	{
 		AVLTree tree = new AVLTree();

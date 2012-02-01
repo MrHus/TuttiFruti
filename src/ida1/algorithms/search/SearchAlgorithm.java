@@ -2,7 +2,7 @@ package ida1.algorithms.search;
 
 /**
  *
- * @author Cornel Alders, Maarten Hus
+ * @author Maarten Hus
  */
 public interface SearchAlgorithm<E extends Comparable<? super E>>
 {

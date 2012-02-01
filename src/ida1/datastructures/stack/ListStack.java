@@ -4,7 +4,7 @@ import stack.linkedlist.Lijst;
 
 /**
  *
- * @author Cornel Alders
+ * @author Maarten Hus
  */
 public class ListStack implements Stack
 {

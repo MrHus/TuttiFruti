@@ -2,7 +2,7 @@ package ida1.datastructures.queue;
 
 /**
  *
- * @author Cornel Alders
+ * @author Maarten Hus
  */
 public interface Deque 
 {

@@ -5,7 +5,7 @@ package ida1.algorithms.sort;
  * There is no generic support for now, but I don't think this is possible.
  * How could we define the correct buckets?
  *
- * @author Cornel Alders, Maarten Hus
+ * @author Maarten Hus
  */
 public class BucketSort<E extends Comparable<? super E>> implements SortAlgorithm<E>
 {

@@ -4,7 +4,7 @@ import ida1.datastructures.linkedlist.Lijst;
 
 /**
  *
- * @author Cornel Alders
+ * @author Maarten Hus
  */
 public class ListDeque implements Deque
 {

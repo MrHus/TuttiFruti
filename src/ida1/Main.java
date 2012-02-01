@@ -8,16 +8,16 @@ public class Main
 {
     public void performanceTest()
     {
-        //Chocobo.printPerformance();
-        //Chocobo.start();
+        //SystemAnalyser.printPerformance();
+        //SystemAnalyser.start();
         TreeWithDictionary.test();
-        //Chocobo.stop();
+        //SystemAnalyser.stop();
 
-		//System.out.println("Memory usage in bytes: " + Chocobo.GetAllocatedMemory());
-        //System.out.println("Elapsed time in miliseconds: " + Chocobo.getTimeElapsed());
-        //System.out.println("Elapsed time in nanoseconds: " + Chocobo.getNanoTimeElapsed());
+		//System.out.println("Memory usage in bytes: " + SystemAnalyser.GetAllocatedMemory());
+        //System.out.println("Elapsed time in miliseconds: " + SystemAnalyser.getTimeElapsed());
+        //System.out.println("Elapsed time in nanoseconds: " + SystemAnalyser.getNanoTimeElapsed());
 
-		Chocobo.reset();
+		SystemAnalyser.reset();
     }
 
     /**
@@ -25,7 +25,14 @@ public class Main
      */
     public static void main(String[] args)
 	{
-        Main main = new Main();
-		main.performanceTest();
+        //RobotRunner.random100Test();
+		//RobotRunner.random100SameTest();
+		//RobotRunner.random100Same10Test();
+
+		//RobotRunner.heapSort();
+		//RobotRunner.treeSort();
+		//RobotRunner.mergeSort();
+
+		// Silly sentences run ik vanuit zijn eigen main.
     }
 }

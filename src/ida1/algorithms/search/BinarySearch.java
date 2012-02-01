@@ -5,7 +5,7 @@ import ida1.algorithms.sort.QuickSort;
 /**
  * Binary search implementation.
  *
- * @author Maarten Hus, Cornel Alders
+ * @author Maarten Hus
  */
 public class BinarySearch<E extends Comparable<? super E>> implements SearchAlgorithm<E>
 {

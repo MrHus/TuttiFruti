@@ -556,6 +556,11 @@ public class RBTree<E extends Comparable<E>> extends Tree<E>
 		}
 	}
 
+	public String toString()
+	{
+		return "RBTree";
+	}
+
 	public static void test()
 	{
 		RBTree<Integer> tree = new RBTree<Integer>();

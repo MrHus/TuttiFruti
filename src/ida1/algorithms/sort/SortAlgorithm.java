@@ -2,7 +2,7 @@ package ida1.algorithms.sort;
 
 /**
  *
- * @author Cornel Alders
+ * @author Maarten Hus
  */
 public interface SortAlgorithm<E extends Comparable<? super E>>
 {
