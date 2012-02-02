@@ -1,40 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/datastructures/BinaryHeap.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/algorithms/sort/HeapSort.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/SystemAnalyser.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/Main.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/TreeWithDictionary.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/trees/BKnoop.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/trees/SplayTree.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/RobotRunner.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/smallDutch.dic</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/algorithms/sort/TreeSort.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/datastructures/queue/ListDeque.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/datastructures/queue/Deque.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/datastructures/queue/ListQueue.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/datastructures/queue/Queue.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/silly_sentences/Main.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/silly_sentences/SentenceGenerator.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/datastructures/SparceMatrix.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/algorithms/sort/MergeSort.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/algorithms/sort/QuickSort.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/algorithms/sort/BubbleSort.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/trees/AVLTree.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/newDutch.dic</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/dict.txt</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/Dutch.dic</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/algorithms/search/BinarySearch.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/trees/RBTree.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/trees/BinaryTree.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/algorithms/search/LinearSearch.java</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/silly_sentences/ACTIE.txt</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/silly_sentences/DOEL.txt</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/silly_sentences/PERSONEN.txt</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/silly_sentences/PERSOON.txt</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/nbproject/project.properties</file>
-        <file>file:/Users/maartenhus/NetBeansProjects/ida1/src/ida1/datastructures/stack/Stack.java</file>
-    </open-files>
 </project-private>

@@ -39,45 +39,7 @@ public class Runlength
 		}
 
 		return builder.toString();
-	}
-
-	private ArrayList<ArrayList<FrequencyAndCharacter>> getFrequencyCharacterPairs(ArrayList<String> lines)
-	{
-		ArrayList<ArrayList<FrequencyAndCharacter>> encodedLines = new ArrayList<ArrayList<FrequencyAndCharacter>>();
-
-		for (String line : lines)
-		{
-			ArrayList<FrequencyAndCharacter> encodedLine = new ArrayList<FrequencyAndCharacter>();
-
-			int index = 0;
-			char current = line.charAt(index);
-			int counter = 0;
-
-			for (int i = index; i < line.length(); i++)
-			{
-				 char nextchar = line.charAt(i);
-				 if (current == nextchar)
-				 {
-					 counter += 1;
-				 }
-				 else
-				 {
-					 FrequencyAndCharacter fq = new FrequencyAndCharacter(counter, current);
-					 encodedLine.add(fq);
-
-					 current = nextchar;
-					 counter = 1;
-				 }
-			}
-
-			FrequencyAndCharacter fq = new FrequencyAndCharacter(counter, current);
-			encodedLine.add(fq);
-
-			encodedLines.add(encodedLine);
-		}
-
-		return encodedLines;
-	}
+	}	
 
 	public String decode(String encodedString)
 	{
@@ -153,7 +115,7 @@ public class Runlength
 		try
 		{
 			String documentPath = "src/ida1/runlength/";
-			FileOutputStream fos = new FileOutputStream(documentPath + filename +".dat");
+			FileOutputStream fos = new FileOutputStream(documentPath + filename +".txt");
 
 			byte[] bytes = encodedString.getBytes();
 			//System.out.println("Bytes: " + bytes + " length " + bytes.length);
@@ -169,6 +131,36 @@ public class Runlength
 		{
 			System.out.println("IOException : " + ioe);
 		}
+	}
+
+	public String encodedMapFromFile(String textfile)
+	{
+		StringBuilder builder = new StringBuilder();
+
+		try
+        {
+			String documentPath = "src/ida1/runlength/";
+			InputStream is = new BufferedInputStream(new FileInputStream(documentPath + textfile + ".txt"));
+			try
+			{
+				BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+				String line;
+				while((line = br.readLine()) != null)
+				{
+					builder.append(line);
+				}
+
+				br.close();
+			}
+			finally
+			{
+				is.close();
+			}
+		}
+		catch (IOException e){}
+
+		return builder.toString();
 	}
 
 	private ArrayList<String> readFile(String textfile)
@@ -221,5 +213,43 @@ public class Runlength
 		{
 			return "(" + character + " " + frequency + ")";
 		}
+	}
+
+	private ArrayList<ArrayList<FrequencyAndCharacter>> getFrequencyCharacterPairs(ArrayList<String> lines)
+	{
+		ArrayList<ArrayList<FrequencyAndCharacter>> encodedLines = new ArrayList<ArrayList<FrequencyAndCharacter>>();
+
+		for (String line : lines)
+		{
+			ArrayList<FrequencyAndCharacter> encodedLine = new ArrayList<FrequencyAndCharacter>();
+
+			int index = 0;
+			char current = line.charAt(index);
+			int counter = 0;
+
+			for (int i = index; i < line.length(); i++)
+			{
+				 char nextchar = line.charAt(i);
+				 if (current == nextchar)
+				 {
+					 counter += 1;
+				 }
+				 else
+				 {
+					 FrequencyAndCharacter fq = new FrequencyAndCharacter(counter, current);
+					 encodedLine.add(fq);
+
+					 current = nextchar;
+					 counter = 1;
+				 }
+			}
+
+			FrequencyAndCharacter fq = new FrequencyAndCharacter(counter, current);
+			encodedLine.add(fq);
+
+			encodedLines.add(encodedLine);
+		}
+
+		return encodedLines;
 	}
 }
