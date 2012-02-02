@@ -28,7 +28,7 @@ public class Main
 
 		for (String map : maps)
 		{
-			System.out.println("");
+			System.out.println(map);
 			String encodedMap = rl.encode(map);
 			System.out.println("encodedLength: " + encodedMap.length());
 			rl.writeToFile(map + "encoded", encodedMap );

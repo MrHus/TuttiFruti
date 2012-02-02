@@ -2,6 +2,7 @@ package ida1.runlength;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -116,11 +117,11 @@ public class Runlength
 		{
 			String documentPath = "src/ida1/runlength/";
 			FileOutputStream fos = new FileOutputStream(documentPath + filename +".txt");
+			DataOutputStream dos = new DataOutputStream(fos);
 
-			byte[] bytes = encodedString.getBytes();
-			//System.out.println("Bytes: " + bytes + " length " + bytes.length);
-			fos.write(bytes);
+			dos.writeBytes(encodedString);
 
+			dos.close();
 			fos.close();
 		}
 		catch (FileNotFoundException ex)
