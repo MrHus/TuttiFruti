@@ -29,9 +29,9 @@ public class Main
 		//RobotRunner.random100SameTest();
 		//RobotRunner.random100Same10Test();
 
-		//RobotRunner.heapSort();
-		//RobotRunner.treeSort();
-		//RobotRunner.mergeSort();
+		RobotRunner.heapSort();
+		RobotRunner.treeSort();
+		RobotRunner.mergeSort();
 
 		// Silly sentences run ik vanuit zijn eigen main.
     }

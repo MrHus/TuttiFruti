@@ -1,5 +1,7 @@
 package ida1.runlength;
 
+import java.io.File;
+
 /**
  *
  * @author maartenhus
@@ -30,16 +32,23 @@ public class Main
 		{
 			System.out.println(map);
 			String encodedMap = rl.encode(map);
-			System.out.println("encodedLength: " + encodedMap.length());
 			rl.writeToFile(map + "encoded", encodedMap );
+
+			File f0 = new File("src/ida1/runlength/" + map + "encoded.dat");
+			long lengthEncoded = f0.length();
+
+			File f1 = new File("src/ida1/runlength/" + map + ".txt");
+			long lengthDecoded = f1.length();
+
+			System.out.println("Encoded length: " + lengthEncoded);
+			System.out.println("Decoded length: " + lengthDecoded);
+
+			double compression = (double) lengthDecoded / lengthEncoded * 100;
+
+			System.out.println("compression: "+ Math.round(compression) + "%");
 
 			String encodedString = rl.encodedMapFromFile(map + "encoded");
 			String decodedMap = rl.decode(encodedString);
-			System.out.println("decodedLength: " + decodedMap.length());
-
-			double compression = (double) decodedMap.length() / encodedMap.length() * 100;
-
-			System.out.println("compression: "+ Math.round(compression) + "%");
 
 			System.out.println(decodedMap);
 		}

@@ -1,8 +1,13 @@
 package ida1.trees;
 
 // Klasse voor een knoop voor een binaire boom
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
 // Met boomwandelingen pre-order en level-order
-import java.util.*;
+
 
 public class BKnoop<E>
 {
@@ -29,7 +34,7 @@ public class BKnoop<E>
 
 	public String preOrderToString()
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		for (E node : preOrder())
 		{
@@ -65,7 +70,7 @@ public class BKnoop<E>
 
 	public String inOrderToString()
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		for (E node : inOrder())
 		{
@@ -102,7 +107,7 @@ public class BKnoop<E>
 
 	public String postOrderToString()
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		for (E node : postOrder())
 		{

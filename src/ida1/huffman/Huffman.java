@@ -122,7 +122,7 @@ public class Huffman
 	{
 		HashMap<Character, String> codeMap = codeMap(huffmanTree(frequencyToSortedList(frequencyHashMap(plain))));
 
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		for (char c : plain.toCharArray())
 		{
@@ -135,7 +135,7 @@ public class Huffman
 	public String decodeString(String code, BKnoop<Map.Entry <Character, Integer>> huffmanTree)
 	{
 		BKnoop<Map.Entry <Character, Integer>> currentRoot = huffmanTree;
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		for (char c : code.toCharArray())
 		{
