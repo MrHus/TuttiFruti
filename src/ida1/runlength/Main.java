@@ -40,6 +40,8 @@ public class Main
 			double compression = (double) decodedMap.length() / encodedMap.length() * 100;
 
 			System.out.println("compression: "+ Math.round(compression) + "%");
+
+			System.out.println(decodedMap);
 		}
 	}
 }

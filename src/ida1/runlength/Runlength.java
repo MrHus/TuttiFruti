@@ -116,10 +116,13 @@ public class Runlength
 		try
 		{
 			String documentPath = "src/ida1/runlength/";
-			FileOutputStream fos = new FileOutputStream(documentPath + filename +".txt");
+			FileOutputStream fos = new FileOutputStream(documentPath + filename +".dat");
 			DataOutputStream dos = new DataOutputStream(fos);
 
-			dos.writeBytes(encodedString);
+			for(byte b : encodedString.getBytes())
+			{
+				dos.writeByte(b);
+			}
 
 			dos.close();
 			fos.close();
@@ -141,7 +144,7 @@ public class Runlength
 		try
         {
 			String documentPath = "src/ida1/runlength/";
-			InputStream is = new BufferedInputStream(new FileInputStream(documentPath + textfile + ".txt"));
+			InputStream is = new BufferedInputStream(new FileInputStream(documentPath + textfile + ".dat"));
 			try
 			{
 				BufferedReader br = new BufferedReader(new InputStreamReader(is));

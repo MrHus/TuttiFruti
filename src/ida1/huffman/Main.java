@@ -70,7 +70,7 @@ public class Main
 
 			System.out.println("compression: "+ Math.round(compression) + "%");
 
-			System.out.println("Map " + decodedMap);
+			System.out.println(decodedMap);
 		}
 	}
 
