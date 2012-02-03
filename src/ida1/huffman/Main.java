@@ -55,7 +55,7 @@ public class Main
 		{
 			System.out.println(map);
 			String mapString = readMapFromFile(map);
-			BKnoop<Map.Entry <Character, Integer>> huffmanTree = huffman.huffmanTree(huffman.frequencyToSortedList(huffman.frequencyHashMap("bananen")));
+			BKnoop<Map.Entry <Character, Integer>> huffmanTree = huffman.huffmanTree(huffman.frequencyToSortedList(huffman.frequencyHashMap(mapString)));
 			String encodedMap = huffman.encodeString(mapString);
 
 			writeToFile(map + "encoded", encodedMap);
@@ -69,6 +69,8 @@ public class Main
 			double compression = (double) decodedMap.length() / encodedMap.length() * 100;
 
 			System.out.println("compression: "+ Math.round(compression) + "%");
+
+			System.out.println("Map " + decodedMap);
 		}
 	}
 
@@ -107,10 +109,14 @@ public class Main
 		try
 		{
 			String documentPath = "src/ida1/huffman/";
-			FileOutputStream fos = new FileOutputStream(documentPath + filename +".txt");
+			FileOutputStream fos = new FileOutputStream(documentPath + filename +".dat");
 			DataOutputStream dos = new DataOutputStream(fos);
 
-			dos.writeBytes(encodedString);
+			for (char c : encodedString.toCharArray())
+			{
+				byte b = Byte.parseByte(Character.toString(c), 2);
+				dos.writeByte(b);
+			}
 
 			dos.close();
 			fos.close();
