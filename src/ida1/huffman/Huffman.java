@@ -45,7 +45,7 @@ public class Huffman
 			}
 		}
 
-		System.out.println(frequency);
+		//System.out.println(frequency);
 		return frequency;
 	}
 
@@ -105,7 +105,7 @@ public class Huffman
 
 		createCodeMap(codeMap, "", huffmanTree);
 
-		System.out.println(codeMap);
+		//System.out.println(codeMap);
 
 		return codeMap;
 	}

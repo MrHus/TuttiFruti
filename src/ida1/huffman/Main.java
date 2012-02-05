@@ -1,5 +1,6 @@
 package ida1.huffman;
 
+import ida1.trees.BKnoop;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.AbstractMap;
 
 /**
  *
@@ -43,29 +45,33 @@ public class Main
 
 	public static void Tester()
 	{
-		Huffman huffman = new Huffman();
-
-		String[] maps = {"map1"};//, "map2", "map3", "map4", "map5"};
+		String[] maps = {"map1", "map2", "map3", "map4", "map5"};
 
 		for (String map : maps)
 		{
-			String documentPath = "src/ida1/huffman/";
+			System.out.println(map);
 
-			Huffman.encodeToFile(documentPath + map + "encoded.dat", readMapFromFile(documentPath + map +".txt"));
+			String prefix = "src/ida1/huffman/";
+			String mapString = readMapFromFile(prefix + map + ".txt");
+			BKnoop<AbstractMap.SimpleEntry <Character, Integer>> huffmanTree = Huffman.huffmanTree(Huffman.frequencyToSortedList(Huffman.frequencyHashMap(mapString)));
+			String encodedMap = Huffman.encodeString(mapString);
 
-			File f0 = new File(documentPath + map + "encoded.dat");
+			Huffman.writeToFile(map + "encoded", encodedMap, huffmanTree);
+
+			File f0 = new File(prefix + map + "encoded.dat");
 			long lengthEncoded = f0.length();
-			
-			File f1 = new File(documentPath + map + ".txt");
+
+			File f1 = new File(prefix + map + ".txt");
 			long lengthDecoded = f1.length();
 
 			System.out.println("Encoded length: " + lengthEncoded);
 			System.out.println("Decoded length: " + lengthDecoded);
 
-			double compression = (double) lengthDecoded / lengthEncoded * 100;
-			System.out.println("compression: "+ Math.round(compression) + "%");
+			String decodedMap = Huffman.decodeString(encodedMap, huffmanTree);
 
-			String decodedMap = Huffman.decodeFromFile(documentPath + map + "encoded.dat");
+			double compression = (double) lengthDecoded / lengthEncoded * 100;
+
+			System.out.println("compression: "+ Math.round(compression) + "%");
 
 			System.out.println(decodedMap);
 		}
@@ -85,7 +91,11 @@ public class Main
 				String line;
 				while((line = br.readLine()) != null)
 				{
-					builder.append(line);
+					// No empty line
+					if (line.isEmpty() == false)
+					{
+						builder.append(line + "\n");
+					}
 				}
 
 				br.close();

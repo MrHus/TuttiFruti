@@ -31,13 +31,16 @@ public class Main
 		for (String map : maps)
 		{
 			System.out.println(map);
-			String encodedMap = rl.encode(map);
-			rl.writeToFile(map + "encoded", encodedMap );
 
-			File f0 = new File("src/ida1/runlength/" + map + "encoded.dat");
+			String prefix = "src/ida1/runlength/";
+
+			String encodedMap = rl.encode(prefix + map + ".txt");
+			rl.writeToFile(prefix + map + "encoded.dat", encodedMap );
+
+			File f0 = new File(prefix + map + "encoded.dat");
 			long lengthEncoded = f0.length();
 
-			File f1 = new File("src/ida1/runlength/" + map + ".txt");
+			File f1 = new File(prefix + map + ".txt");
 			long lengthDecoded = f1.length();
 
 			System.out.println("Encoded length: " + lengthEncoded);
@@ -47,7 +50,7 @@ public class Main
 
 			System.out.println("compression: "+ Math.round(compression) + "%");
 
-			String encodedString = rl.encodedMapFromFile(map + "encoded");
+			String encodedString = rl.encodedMapFromFile(prefix + map + "encoded.dat");
 			String decodedMap = rl.decode(encodedString);
 
 			System.out.println(decodedMap);

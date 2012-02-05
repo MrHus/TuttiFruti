@@ -115,8 +115,7 @@ public class Runlength
 	{
 		try
 		{
-			String documentPath = "src/ida1/runlength/";
-			FileOutputStream fos = new FileOutputStream(documentPath + filename +".dat");
+			FileOutputStream fos = new FileOutputStream(filename);
 			DataOutputStream dos = new DataOutputStream(fos);
 
 			for(byte b : encodedString.getBytes())
@@ -137,14 +136,14 @@ public class Runlength
 		}
 	}
 
-	public String encodedMapFromFile(String textfile)
+	public String encodedMapFromFile(String filename)
 	{
 		StringBuilder builder = new StringBuilder();
 
 		try
         {
 			String documentPath = "src/ida1/runlength/";
-			InputStream is = new BufferedInputStream(new FileInputStream(documentPath + textfile + ".dat"));
+			InputStream is = new BufferedInputStream(new FileInputStream(filename));
 			try
 			{
 				BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -167,14 +166,14 @@ public class Runlength
 		return builder.toString();
 	}
 
-	private ArrayList<String> readFile(String textfile)
+	private ArrayList<String> readFile(String filename)
 	{
 		ArrayList<String> lines = new ArrayList<String>();
 		
 		try
         {
 			String documentPath = "src/ida1/runlength/";
-			InputStream is = new BufferedInputStream(new FileInputStream(documentPath + textfile + ".txt"));
+			InputStream is = new BufferedInputStream(new FileInputStream(filename));
 			try
 			{
 				BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -183,7 +182,7 @@ public class Runlength
 				while((line = br.readLine()) != null)
 				{
 					// We don't want empty lines.
-					if (line.equals("") == false)
+					if (line.isEmpty() == false)
 					{
 						lines.add(line);
 					}
