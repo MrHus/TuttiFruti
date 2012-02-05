@@ -155,7 +155,7 @@ public class BKnoop<E>
 		return buffer.toString();
 	}
 
-	private ArrayList<E> levelOrder()
+	public ArrayList<E> levelOrder()
 	{
 		Queue<BKnoop<E>> queue = new LinkedList<BKnoop<E>>();
 		queue.add(this);

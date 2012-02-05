@@ -1,8 +1,16 @@
 package ida1.huffman;
 
 import ida1.trees.BKnoop;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -19,7 +27,7 @@ public class Huffman
 
 	}
 
-	public HashMap<Character, Integer> frequencyHashMap (String string)
+	public static HashMap<Character, Integer> frequencyHashMap (String string)
 	{
 		HashMap<Character, Integer> frequency = new HashMap<Character, Integer>();
 
@@ -37,28 +45,31 @@ public class Huffman
 			}
 		}
 
+		System.out.println(frequency);
 		return frequency;
 	}
 
-	public ArrayList<BKnoop <Map.Entry <Character, Integer>>> frequencyToSortedList(HashMap<Character, Integer> frequencyHashMap)
+	public static ArrayList<BKnoop <AbstractMap.SimpleEntry <Character, Integer>>> frequencyToSortedList(HashMap<Character, Integer> frequencyHashMap)
 	{
-		ArrayList<BKnoop <Map.Entry <Character, Integer>>> frequencyList = new ArrayList<BKnoop <Map.Entry <Character, Integer>>>();
+		ArrayList<BKnoop <AbstractMap.SimpleEntry <Character, Integer>>> frequencyList = new ArrayList<BKnoop <AbstractMap.SimpleEntry <Character, Integer>>>();
 
 		for(Map.Entry<Character, Integer> e : frequencyHashMap.entrySet())
 		{
-			frequencyList.add(new BKnoop(e));
+			frequencyList.add(new BKnoop(new AbstractMap.SimpleEntry<Character, Integer>(e.getKey(), e.getValue())));
 		}
 
 		Collections.sort(frequencyList, new EntryComparator());
 
+		//System.out.println(frequencyList);
+
 		return frequencyList;
 	}
 
-	public BKnoop<Map.Entry <Character, Integer>> huffmanTree (ArrayList<BKnoop <Map.Entry <Character, Integer>>> frequencySortedList)
+	public static BKnoop<AbstractMap.SimpleEntry <Character, Integer>> huffmanTree (ArrayList<BKnoop <AbstractMap.SimpleEntry <Character, Integer>>> frequencySortedList)
 	{
 		if (frequencySortedList.isEmpty())				// Edge case should never be true
 		{
-			return new BKnoop<Map.Entry <Character, Integer>>(new AbstractMap.SimpleEntry<Character, Integer>(null, 0));
+			return new BKnoop<AbstractMap.SimpleEntry <Character, Integer>>(new AbstractMap.SimpleEntry<Character, Integer>(null, 0));
 		}
 		else if(frequencySortedList.size() == 1)		// One and whe are done.
 		{
@@ -66,12 +77,12 @@ public class Huffman
 		}
 		else											// Create a new BKnoop and add the two lowest als children and as the value the total
 		{
-			BKnoop <Map.Entry <Character, Integer>> first	= frequencySortedList.get(0);
-			BKnoop <Map.Entry <Character, Integer>>	second  = frequencySortedList.get(1);
+			BKnoop <AbstractMap.SimpleEntry <Character, Integer>>   first	= frequencySortedList.get(0);
+			BKnoop <AbstractMap.SimpleEntry <Character, Integer>>	second  = frequencySortedList.get(1);
 
 			Integer total = first.get().getValue() + second.get().getValue();
 
-			Map.Entry<Character, Integer> entry = new AbstractMap.SimpleEntry<Character, Integer>(null, total);
+			AbstractMap.SimpleEntry<Character, Integer> entry = new AbstractMap.SimpleEntry<Character, Integer>(null, total);
 
 			BKnoop knoop = new BKnoop<Map.Entry <Character, Integer>>(entry);
 			knoop.add(first);
@@ -88,19 +99,21 @@ public class Huffman
 		}
 	}
 
-	public HashMap<Character, String> codeMap (BKnoop<Map.Entry <Character, Integer>> huffmanTree)
+	public static HashMap<Character, String> codeMap (BKnoop<AbstractMap.SimpleEntry <Character, Integer>> huffmanTree)
 	{
 		HashMap<Character, String> codeMap = new HashMap<Character, String>();
 
 		createCodeMap(codeMap, "", huffmanTree);
 
+		System.out.println(codeMap);
+
 		return codeMap;
 	}
 
-	private void createCodeMap (HashMap<Character, String> codeMap, String walk, BKnoop<Map.Entry <Character, Integer>> huffmanTree)
+	private static void createCodeMap (HashMap<Character, String> codeMap, String walk, BKnoop<AbstractMap.SimpleEntry <Character, Integer>> huffmanTree)
 	{
-		BKnoop<Map.Entry <Character, Integer>> leftChild = huffmanTree.getLeftChild();
-		BKnoop<Map.Entry <Character, Integer>> rightChild = huffmanTree.getRightChild();
+		BKnoop<AbstractMap.SimpleEntry <Character, Integer>> leftChild = huffmanTree.getLeftChild();
+		BKnoop<AbstractMap.SimpleEntry <Character, Integer>> rightChild = huffmanTree.getRightChild();
 
 		if(leftChild != null)
 		{
@@ -118,7 +131,7 @@ public class Huffman
 		}
 	}
 
-	public String encodeString(String plain)
+	public static String encodeString(String plain)
 	{
 		HashMap<Character, String> codeMap = codeMap(huffmanTree(frequencyToSortedList(frequencyHashMap(plain))));
 
@@ -132,9 +145,9 @@ public class Huffman
 		return buffer.toString();
 	}
 
-	public String decodeString(String code, BKnoop<Map.Entry <Character, Integer>> huffmanTree)
+	public static String decodeString(String code, BKnoop<AbstractMap.SimpleEntry <Character, Integer>> huffmanTree)
 	{
-		BKnoop<Map.Entry <Character, Integer>> currentRoot = huffmanTree;
+		BKnoop<AbstractMap.SimpleEntry <Character, Integer>> currentRoot = huffmanTree;
 		StringBuilder buffer = new StringBuilder();
 
 		for (char c : code.toCharArray())
@@ -158,9 +171,225 @@ public class Huffman
 		return buffer.toString();
 	}
 
-	static class EntryComparator implements Comparator<BKnoop <Map.Entry <Character, Integer>>>
+	public static String decodeString(BKnoop<Character> huffmanTree, String code)
 	{
-		public int compare(BKnoop <Map.Entry <Character, Integer>> k1, BKnoop <Map.Entry <Character, Integer>> k2)
+		//System.out.println("The code " + code);
+		BKnoop<Character> currentRoot = huffmanTree;
+		StringBuilder buffer = new StringBuilder();
+
+		for (char c : code.toCharArray())
+		{
+			if (c == '0')
+			{			
+				currentRoot = currentRoot.getLeftChild();
+			}
+			else
+			{	
+				currentRoot = currentRoot.getRightChild();
+			}
+
+			if (currentRoot.getLeftChild() == null && currentRoot.getRightChild() == null)
+			{
+				if (currentRoot.get() != null)
+				{
+					buffer.append(currentRoot.get());
+				}
+				
+				currentRoot = huffmanTree;
+			}
+		}
+
+		return buffer.toString();
+	}
+
+	public static void writeToFile(String filename, String encodedString, BKnoop<AbstractMap.SimpleEntry <Character, Integer>> huffManTree)
+	{
+		try
+		{
+			FileOutputStream fos = new FileOutputStream(filename);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+			ArrayList<Character> hufflist = new ArrayList<Character>();
+
+			for(AbstractMap.SimpleEntry <Character, Integer> entry : huffManTree.levelOrder())
+			{
+				//System.out.println(entry.getKey());
+				hufflist.add(entry.getKey());
+			}
+
+			//System.out.println("Tree level order " + huffManTree.levelOrderToString());
+
+			oos.writeObject(hufflist);
+			oos.reset();
+
+			final int length = encodedString.length();
+
+			final BitSet bitSet = new BitSet(length);
+			for(int i = length - 1; i >= 0; i--)
+			{
+				// anything that's not a 1 is a zero, per convention
+				bitSet.set(i, encodedString.charAt(i) == '1');
+			}
+
+			oos.writeObject(bitSet);
+			oos.reset();
+
+			// Write length as a string since Integer is cast to int by writeObject which
+			// causes the reader to not read it.
+			oos.writeObject("" + length);
+			oos.reset();
+
+			oos.flush();
+			oos.close();
+			fos.close();
+		}
+		catch (FileNotFoundException ex)
+		{
+			System.out.println("FileNotFoundException : " + ex);
+		}
+		catch (IOException ioe)
+		{
+			System.out.println("IOException : " + ioe);
+		}
+	}
+
+	public static void encodeToFile(String fileName, String plain)
+	{
+		BKnoop<AbstractMap.SimpleEntry <Character, Integer>> huffmanTree = huffmanTree(frequencyToSortedList(frequencyHashMap(plain)));
+
+		String encoded = encodeString(plain);
+
+		writeToFile(fileName, encoded, huffmanTree);
+	}
+
+	public static String decodeFromFile(String filename)
+	{
+		ArrayList<Character> hufflist = null;
+		String encodedString = null;
+		int lengthOfBitSet = 0;
+
+		ObjectInputStream inputStream = null;
+
+        try
+		{
+            //Construct the ObjectInputStream object
+            inputStream = new ObjectInputStream(new FileInputStream(filename));
+
+			hufflist = (ArrayList<Character>)inputStream.readObject();
+			BitSet bs = ((BitSet)inputStream.readObject());
+
+			lengthOfBitSet = Integer.parseInt((String)inputStream.readObject());
+	
+			StringBuilder builder = new StringBuilder();
+
+			for (int i = 0; i < lengthOfBitSet; i++)
+			{
+				if (bs.get(i))
+				{
+					builder.append("1");
+				}
+				else
+				{
+					builder.append("0");
+				}
+			}
+
+			encodedString = builder.toString();
+        }
+		catch (EOFException ex)
+		{
+        }
+		catch (ClassNotFoundException ex)
+		{
+            ex.printStackTrace();
+        }
+		catch (FileNotFoundException ex)
+		{
+            ex.printStackTrace();
+        }
+		catch (IOException ex)
+		{
+            ex.printStackTrace();
+        }
+		finally
+		{
+            //Close the ObjectInputStream
+            try
+			{
+                if (inputStream != null)
+				{
+                    inputStream.close();
+                }
+            }
+			catch (IOException ex)
+			{
+                ex.printStackTrace();
+            }
+        }
+
+		if (hufflist != null && encodedString != null)
+		{
+			BKnoop<Character> huffmanTree = huffmanTreeFromLevelOrderList(hufflist);
+
+			System.out.println("Tree level order " + huffmanTree.levelOrderToString());
+
+			return decodeString(huffmanTree, encodedString);
+		}
+		
+		return "Error";
+	}
+
+	public static BKnoop<Character> huffmanTreeFromLevelOrderList(ArrayList<Character> hufflist)
+	{
+		BKnoop<Character> huffmanTree = new BKnoop<Character>(hufflist.get(0));
+		BKnoop<Character> current = huffmanTree;
+
+		// Which element should have stuff apended?
+		int index = 0;
+		int left = 1;
+		int right = 2;
+		boolean shouldGoRight = true;
+
+		while (index < hufflist.size())
+		{
+			BKnoop<Character> leftChild  = null;
+			BKnoop<Character> rightChild = null;
+
+			if (left < hufflist.size())
+			{
+				leftChild = new BKnoop<Character>(hufflist.get(left));
+				current.insert(leftChild, BKnoop.LEFT);
+			}
+
+			if (right < hufflist.size())
+			{
+				rightChild = new BKnoop<Character>(hufflist.get(right));
+				current.insert(rightChild, BKnoop.RIGHT);
+			}
+
+			left  += 2;
+			right += 2;
+
+			if (shouldGoRight)
+			{
+				index = right;
+				current = rightChild;
+				shouldGoRight = false;
+			}
+			else
+			{
+				index = left;
+				current = leftChild;
+				shouldGoRight = true;
+			}
+		}
+
+		return huffmanTree;
+	}
+
+	static class EntryComparator implements Comparator<BKnoop <AbstractMap.SimpleEntry <Character, Integer>>>
+	{
+		public int compare(BKnoop <AbstractMap.SimpleEntry <Character, Integer>> k1, BKnoop <AbstractMap.SimpleEntry <Character, Integer>> k2)
 		{
 			if (k1.get().getValue() > k2.get().getValue())
 			{
