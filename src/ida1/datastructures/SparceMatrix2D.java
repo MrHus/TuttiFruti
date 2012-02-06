@@ -119,24 +119,49 @@ public class SparceMatrix2D<E>
 		return buffer.toString();
 	}
 
-	public static void test()
+	public static void testWithInteger()
 	{
 		SparceMatrix2D<Integer> matrix = new SparceMatrix2D<Integer>(2, 2);
 
-		System.out.println("Testing matrix add");
+		System.out.println("Testing matrix add with Integer");
 		matrix.add(0, 0, 1);
 		System.out.println("(0,0) -> 1 got: " + matrix.get(0, 0));
+		matrix.add(0, 1, 1);
+		System.out.println("(0,1) -> 1 got: " + matrix.get(0, 1));
+		matrix.add(0, 2, 1);
+		System.out.println("(0,2) -> 1 got: " + matrix.get(0, 2));
 		matrix.add(1, 0, 4);
 		System.out.println("(1,0) -> 4 got: " + matrix.get(1, 0));
+		matrix.add(1, 1, 6);
+		System.out.println("(1,1) -> 6 got: " + matrix.get(1, 1));
 		matrix.add(1, 2, 3);
 		System.out.println("(1,2) -> 3 got: " + matrix.get(1, 2));
 		matrix.add(0, 0, 2);
 		System.out.println("(0,0) -> 2 got: " + matrix.get(0, 0));
+		System.out.println("(0,1) -> 1 got: " + matrix.get(0, 1));
+		System.out.println("(0,2) -> 1 got: " + matrix.get(0, 2));
+		System.out.println("(1,1) -> 6 got: " + matrix.get(1, 1));
 //		System.out.println("(3,3) -> illegal got: " + matrix.get(3, 3));
 	}
 
+    public static void testWithString()
+    {
+		SparceMatrix2D<String> matrix = new SparceMatrix2D<String>(2, 2);
+
+		System.out.println("Testing matrix add with String");
+		matrix.add(0, 0, "test");
+		System.out.println("(0,0) -> test got: " + matrix.get(0, 0));
+		matrix.add(1, 0, "Hello");
+		System.out.println("(1,0) -> Hello got: " + matrix.get(1, 0));
+		matrix.add(1, 2, "Wurd");
+		System.out.println("(1,2) -> Wurd got: " + matrix.get(1, 2));
+		matrix.add(0, 0, "World");
+		System.out.println("(0,0) -> World got: " + matrix.get(0, 0));
+    }
+
     public static void main(String[] args)
     {
-        test();
+        testWithInteger();
+        testWithString();
     }
 }

@@ -47,8 +47,8 @@ public class MatrixList<E> implements Iterable<E>
         if(!replaced)
         {
 //            System.out.println("add " + el.getData() + " on pos " + el);
+            el.setNextRow(rowHeader.getNextRow());
             rowHeader.setNextRow(el);
-            el.setPreviousRow(rowHeader);
         }
     }
 
