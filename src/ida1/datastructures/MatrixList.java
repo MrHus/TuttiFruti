@@ -50,7 +50,9 @@ public class MatrixList<E> implements Iterable<E>
         {
 //            System.out.println("add after head " + el.getData() + " on pos " + el);
             el.setNextColumn(currentColumn);
+            el.setPreviousColumn(currentColumn);
             currentColumn.setNextColumn(el);
+            currentColumn.setPreviousColumn(el);
         }
         else
         {
@@ -72,6 +74,7 @@ public class MatrixList<E> implements Iterable<E>
                 {
 //                    System.out.println("add " + el.getData() + " after pos " + currentColumn + " on " + el);
                     el.setNextColumn(currentColumn.getNextColumn());
+                    el.setPreviousColumn(currentColumn);
                     currentColumn.setNextColumn(el);
                     break;
                 }
@@ -123,21 +126,24 @@ public class MatrixList<E> implements Iterable<E>
     {
         validateInput(col, row);
         MatrixEntry<E> el = new MatrixEntry<E>(col, row, null);
-        MatrixEntry<E> currentRow = rowHeader;
-		while(currentRow != null)
+        rowHeader = rowMatrix.get(row);
+        MatrixEntry<E> currentColumn = rowHeader.getNextColumn();
+
+		do
         {
-//            System.out.println("Remove " + currentRow + " if " + el);
-            if(currentRow.equals(el))
+//            System.out.println("Remove " + currentColumn + " if " + el);
+            if(currentColumn.equals(el) && !currentColumn.equals(rowHeader))
             {
-//                System.out.println("Remove " + currentRow.getData());
-                currentRow.getPreviousRow().setNextRow(currentRow.getNextRow());
-                currentRow.getPreviousColumn().setNextColumn(currentRow.getNextColumn());
-                currentRow.getNextRow().setPreviousRow(currentRow.getPreviousRow());
-                currentRow.getNextColumn().setPreviousColumn(currentRow.getPreviousColumn());
-                return currentRow.getData();
+//                System.out.println("Remove " + currentColumn.getData());
+//                currentRow.getPreviousRow().setNextRow(currentRow.getNextRow());
+                currentColumn.getPreviousColumn().setNextColumn(currentColumn.getNextColumn());
+//                currentRow.getNextRow().setPreviousRow(currentRow.getPreviousRow());
+                currentColumn.getNextColumn().setPreviousColumn(currentColumn.getPreviousColumn());
+                return currentColumn.getData();
             }
-            currentRow = currentRow.getNextRow();
+            currentColumn = currentColumn.getNextColumn();
         }
+        while(currentColumn != rowHeader);
         return null;
     }
 
