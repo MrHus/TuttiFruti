@@ -256,4 +256,9 @@ public class SparceMatrix<E extends DefinesEmpty>
 		System.out.println("\nTesting print again expect 19 to be removed");
 		System.out.println(matrix);
 	}
+
+    public static void main(String[] args)
+    {
+        test();
+    }
 }
