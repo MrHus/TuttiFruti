@@ -56,7 +56,7 @@ public class Main
 			BKnoop<AbstractMap.SimpleEntry <Character, Integer>> huffmanTree = Huffman.huffmanTree(Huffman.frequencyToSortedList(Huffman.frequencyHashMap(mapString)));
 			String encodedMap = Huffman.encodeString(mapString);
 
-			Huffman.writeToFile(map + "encoded", encodedMap, huffmanTree);
+			Huffman.writeToFile(prefix + map + "encoded.dat", encodedMap, huffmanTree);
 
 			File f0 = new File(prefix + map + "encoded.dat");
 			long lengthEncoded = f0.length();
