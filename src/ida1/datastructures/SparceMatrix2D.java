@@ -124,6 +124,12 @@ public class SparceMatrix2D<E>
         matrix.printMatrixByRows();
     }
 
+
+    public E getFromColumn(int col, int row)
+    {
+        return matrix.getFromColumn(col, row);
+    }
+
 	public static void testWithInteger()
 	{
 		SparceMatrix2D<Integer> matrix = new SparceMatrix2D<Integer>(2, 2);
@@ -133,6 +139,7 @@ public class SparceMatrix2D<E>
 		System.out.println("(0,0) -> 1 got: " + matrix.get(0, 0));
 		matrix.add(0, 1, 3);
 		System.out.println("(0,1) -> 3 got: " + matrix.get(0, 1));
+		System.out.println("--column(0,1) -> 3 got: " + matrix.getFromColumn(0, 1));
 		matrix.add(1, 2, 3);
 		System.out.println("(1,2) -> 3 got: " + matrix.get(1, 2));
 		matrix.add(0, 2, 1);
