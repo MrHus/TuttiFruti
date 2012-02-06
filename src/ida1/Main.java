@@ -10,14 +10,14 @@ public class Main
     {
         //SystemAnalyser.printPerformance();
         //SystemAnalyser.start();
-        TreeWithDictionary.test();
+        //TreeWithDictionary.test();
         //SystemAnalyser.stop();
 
 		//System.out.println("Memory usage in bytes: " + SystemAnalyser.GetAllocatedMemory());
         //System.out.println("Elapsed time in miliseconds: " + SystemAnalyser.getTimeElapsed());
         //System.out.println("Elapsed time in nanoseconds: " + SystemAnalyser.getNanoTimeElapsed());
 
-		SystemAnalyser.reset();
+		//SystemAnalyser.reset();
     }
 
     /**
@@ -30,8 +30,13 @@ public class Main
 		//RobotRunner.random100Same10Test();
 
 		RobotRunner.heapSort();
+		System.out.println("\n");
+
 		RobotRunner.treeSort();
+		System.out.println("\n");
+
 		RobotRunner.mergeSort();
+		System.out.println("\n");
 
 		// Silly sentences run ik vanuit zijn eigen main.
     }

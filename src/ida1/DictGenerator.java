@@ -3,9 +3,11 @@ package ida1;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -36,14 +38,15 @@ public class DictGenerator
             if(overwrite)
                 file.delete();
 
-            PrintStream pin = new PrintStream(new BufferedOutputStream(new FileOutputStream(file.toString(), true)), true);
-            System.setOut(pin);
+			BufferedWriter out = new BufferedWriter(new FileWriter(file.toString()));
 
             for(int i = 0; i < dictSize;i++)
             {
-                System.out.println(randomWordFromFile(fromDict));
+               out.write(randomWordFromFile(fromDict) +"\n");
             }
-            pin.close();
+            out.close();
+			
+			System.setOut(System.out);
         }
         catch(IOException e)
         {
@@ -75,15 +78,14 @@ public class DictGenerator
             if(overwrite)
                 file.delete();
 
-            PrintStream pin = new PrintStream(new BufferedOutputStream(new FileOutputStream(file.toString(), true)), true);
+            BufferedWriter out = new BufferedWriter(new FileWriter(file.toString()));
             Random r = new Random();
-            System.setOut(pin);
-
+        
             for(int i = 0; i < dictSize;i++)
             {
-                System.out.println(list[r.nextInt(list.length)]);
+                out.write(list[r.nextInt(list.length)]+ "\n");
             }
-            pin.close();
+            out.close();
         }
         catch(IOException e)
         {
