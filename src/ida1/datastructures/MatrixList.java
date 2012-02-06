@@ -44,13 +44,19 @@ public class MatrixList<E> implements Iterable<E>
         validateInput(col, row);
         MatrixEntry<E> el = new MatrixEntry<E>(col, row, data);
         rowHeader = rowMatrix.get(row);
+        colHeader = colMatrix.get(col);
         MatrixEntry<E> currentColumn = rowHeader;
+        MatrixEntry<E> currentRow = colHeader;
 
+        //Add new column entry to the row
+            System.out.println("------------------- Add to row ---------------------");
         if(currentColumn.getNextColumn().equals(rowHeader))
         {
 //            System.out.println("add after head " + el.getData() + " on pos " + el);
             el.setNextColumn(currentColumn);
+            el.setPreviousColumn(currentColumn);
             currentColumn.setNextColumn(el);
+            currentColumn.setPreviousColumn(el);
         }
         else
         {
@@ -72,6 +78,7 @@ public class MatrixList<E> implements Iterable<E>
                 {
 //                    System.out.println("add " + el.getData() + " after pos " + currentColumn + " on " + el);
                     el.setNextColumn(currentColumn.getNextColumn());
+                    el.setPreviousColumn(currentColumn);
                     currentColumn.setNextColumn(el);
                     break;
                 }
@@ -79,6 +86,46 @@ public class MatrixList<E> implements Iterable<E>
                 currentColumn = currentColumn.getNextColumn();
             }
             while(currentColumn != rowHeader);
+        }
+
+            System.out.println("------------------- Add to column ---------------------");
+        //Add a new row entry to the column
+        if(currentRow.getNextRow().equals(colHeader))
+        {
+            System.out.println("add after head " + el.getData() + " on pos " + el);
+            el.setNextRow(currentRow);
+            el.setPreviousRow(currentRow);
+            currentRow.setNextRow(el);
+            currentRow.setPreviousRow(el);
+        }
+        else
+        {
+            System.out.println("------------------- " + el + " ---------------------");
+            do
+            {
+                System.out.println(el.getRow() + " > " + currentRow.getRow() + " = " + (el.getRow() > currentRow.getRow()));
+                System.out.println(el.getRow() + " < " + currentRow.getNextColumn().getRow() + " = " + (el.getRow() < currentRow.getNextRow().getRow()));
+                System.out.println("end of list? " + currentRow.getNextRow().equals(colHeader));
+                if(currentRow.equals(el))
+                {
+                    System.out.println(el + " equals " + currentRow + " = " + currentRow.equals(el));
+                    System.out.println("replace " + currentRow.getData() + " with " + data + " on pos " + currentRow);
+                    currentRow.setData(data);
+                    break;
+                }
+                else if(el.getRow() > currentRow.getRow() && el.getRow() < currentRow.getNextRow().getRow() ||
+                        currentRow.getNextRow().equals(colHeader))
+                {
+                    System.out.println("add " + el.getData() + " after pos " + currentRow + " on " + el);
+                    el.setNextRow(currentRow.getNextRow());
+                    el.setPreviousRow(currentRow);
+                    currentRow.setNextRow(el);
+                    break;
+                }
+                System.out.println("---");
+                currentRow = currentRow.getNextRow();
+            }
+            while(currentRow != colHeader);
         }
     }
 
@@ -119,25 +166,50 @@ public class MatrixList<E> implements Iterable<E>
         return null;
     }
 
-    public E remove(int col, int row)
+    public E getFromColumn(int col, int row)
     {
         validateInput(col, row);
         MatrixEntry<E> el = new MatrixEntry<E>(col, row, null);
-        MatrixEntry<E> currentRow = rowHeader;
-		while(currentRow != null)
+        colHeader = colMatrix.get(col);
+        MatrixEntry<E> currentRow = colHeader;
+
+//        System.out.println("colHeader " + colHeader);
+		do
         {
-//            System.out.println("Remove " + currentRow + " if " + el);
+//            System.out.println("currentRow " + currentRow);
             if(currentRow.equals(el))
             {
-//                System.out.println("Remove " + currentRow.getData());
-                currentRow.getPreviousRow().setNextRow(currentRow.getNextRow());
-                currentRow.getPreviousColumn().setNextColumn(currentRow.getNextColumn());
-                currentRow.getNextRow().setPreviousRow(currentRow.getPreviousRow());
-                currentRow.getNextColumn().setPreviousColumn(currentRow.getPreviousColumn());
+//                System.out.println("Found data " + currentRow.getData());
                 return currentRow.getData();
             }
             currentRow = currentRow.getNextRow();
         }
+        while(currentRow != colHeader);
+        return null;
+    }
+
+    public E remove(int col, int row)
+    {
+        validateInput(col, row);
+        MatrixEntry<E> el = new MatrixEntry<E>(col, row, null);
+        rowHeader = rowMatrix.get(row);
+        MatrixEntry<E> currentColumn = rowHeader.getNextColumn();
+
+		do
+        {
+//            System.out.println("Remove " + currentColumn + " if " + el);
+            if(currentColumn.equals(el) && !currentColumn.equals(rowHeader))
+            {
+//                System.out.println("Remove " + currentColumn.getData());
+//                currentRow.getPreviousRow().setNextRow(currentRow.getNextRow());
+                currentColumn.getPreviousColumn().setNextColumn(currentColumn.getNextColumn());
+//                currentRow.getNextRow().setPreviousRow(currentRow.getPreviousRow());
+                currentColumn.getNextColumn().setPreviousColumn(currentColumn.getPreviousColumn());
+                return currentColumn.getData();
+            }
+            currentColumn = currentColumn.getNextColumn();
+        }
+        while(currentColumn != rowHeader);
         return null;
     }
 
@@ -180,6 +252,58 @@ public class MatrixList<E> implements Iterable<E>
 	    colHeader.setPreviousColumn(null);
 	}
 
+    //prints only first entries of each row for now.
+    public void printMatrixByRows()
+    {
+        System.out.println("Sparse Matrix by Rows:");
+        for(MatrixEntry<E> row : rowMatrix)
+        {
+            rowHeader = row;
+            MatrixEntry<E> currentColumn = rowHeader.getNextColumn();
+
+            do
+            {
+                System.out.print(currentColumn.getData() + " ");
+                currentColumn = currentColumn.getNextColumn();
+            }
+            while(currentColumn.getNextColumn() != rowHeader);
+            System.out.println("");
+        }
+//        for(int i = 0; i < numRows; i++)
+//        {
+//            for(int j = 0; j < numColumns; j++)
+//            {
+//                System.out.print(m.getByRow(i, j) + "\t");
+//            }
+//            System.out.println("[" + m.getNumElementsInRow(i) + "]");
+//        }
+//        for(int j = 0; j < numColumns; j++)
+//        {
+//            System.out.print("[" + m.getNumElementsInColumn(j) + "]\t");
+//        }
+//        System.out.println();
+    }
+
+    public void printMatrixByColumns()
+    {
+//        System.out.println("Sparse Matrix by Columns:");
+//        int numRows = m.getNumRows();
+//        int numColumns = m.getNumColumns();
+//        for(int i = 0; i < numRows; i++)
+//        {
+//            for(int j = 0; j < numColumns; j++)
+//            {
+//                System.out.print(m.getByColumn(i, j) + "\t");
+//            }
+//            System.out.println("[" + m.getNumElementsInRow(i) + "]");
+//        }
+//        for(int j = 0; j < numColumns; j++)
+//        {
+//            System.out.print("[" + m.getNumElementsInColumn(j) + "]\t");
+//        }
+//        System.out.println();
+    }
+    
     //Implementation probably incorrect!
 	public Iterator<E> iterator()
 	{

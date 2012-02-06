@@ -84,40 +84,51 @@ public class SparceMatrix2D<E>
         return true;
     }
 
-	public String toString()
-	{
-		// Rows / columns start counting at zero so add one;
+//	public String toString()
+//	{
+//		// Rows / columns start counting at zero so add one;
+//
+//		int columnLength = columns + 1;
+//		int rowLength = rows + 1;
+//
+//		//System.out.println("columns: " + columnLength +" rows: " + rowLength);
+//
+//		StringBuffer buffer = new StringBuffer();
+//
+//		for (int x = 0; x < columnLength; x++)
+//		{
+//			for (int y = 0; y < rowLength; y++)
+//			{
+//				E element = get(x, y);
+//
+//				//System.out.println("x: " + x + " y: " + y + " element: " + element);
+//
+//				if (element == null)
+//				{
+//					buffer.append(" null ");
+//				}
+//				else
+//				{
+//					buffer.append(element.toString());
+//				}
+//			}
+//
+//			buffer.append("\n");
+//		}
+//
+//		return buffer.toString();
+//	}
 
-		int columnLength = columns + 1;
-		int rowLength = rows + 1;
+    public void printRows()
+    {
+        matrix.printMatrixByRows();
+    }
 
-		//System.out.println("columns: " + columnLength +" rows: " + rowLength);
 
-		StringBuffer buffer = new StringBuffer();
-
-		for (int x = 0; x < columnLength; x++)
-		{
-			for (int y = 0; y < rowLength; y++)
-			{
-				E element = get(x, y);
-
-				//System.out.println("x: " + x + " y: " + y + " element: " + element);
-
-				if (element == null)
-				{
-					buffer.append(" null ");
-				}
-				else
-				{
-					buffer.append(element.toString());
-				}
-			}
-
-			buffer.append("\n");
-		}
-
-		return buffer.toString();
-	}
+    public E getFromColumn(int col, int row)
+    {
+        return matrix.getFromColumn(col, row);
+    }
 
 	public static void testWithInteger()
 	{
@@ -128,6 +139,7 @@ public class SparceMatrix2D<E>
 		System.out.println("(0,0) -> 1 got: " + matrix.get(0, 0));
 		matrix.add(0, 1, 3);
 		System.out.println("(0,1) -> 3 got: " + matrix.get(0, 1));
+		System.out.println("--column(0,1) -> 3 got: " + matrix.getFromColumn(0, 1));
 		matrix.add(1, 2, 3);
 		System.out.println("(1,2) -> 3 got: " + matrix.get(1, 2));
 		matrix.add(0, 2, 1);
@@ -142,6 +154,14 @@ public class SparceMatrix2D<E>
 		System.out.println("(0,2) -> 1 got: " + matrix.get(0, 2));
 		System.out.println("(1,1) -> 6 got: " + matrix.get(1, 1));
 //		System.out.println("(3,3) -> illegal got: " + matrix.get(3, 3));
+
+		System.out.println("\nTesting remove");
+		System.out.println("Expecting 4 got: " + matrix.remove(1, 0));
+		System.out.println("Expecting null got: " + matrix.remove(2, 2));
+		matrix.add(1, 0, 4);
+		System.out.println("(1,0) -> null got: " + matrix.get(1, 0));
+
+//        matrix.printRows();
 	}
 
     public static void testWithString()
