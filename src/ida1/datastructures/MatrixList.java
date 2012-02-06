@@ -1,5 +1,6 @@
 package ida1.datastructures;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -8,6 +9,8 @@ import java.util.Iterator;
  */
 public class MatrixList<E> implements Iterable<E>
 {
+    private ArrayList<MatrixEntry<E>> rowMatrix;
+    private ArrayList<MatrixEntry<E>> colMatrix; //Not used yet
     private MatrixEntry<E> rowHeader;
 	private MatrixEntry<E> colHeader;
 	private int rowSize;
@@ -15,9 +18,20 @@ public class MatrixList<E> implements Iterable<E>
 
     public MatrixList(int numCols, int numRows)
     {
-        clear();
+//        clear();
         colSize = numCols;
         rowSize = numRows;
+        colMatrix = new ArrayList<MatrixEntry<E>>();
+        for(int i = 0; i <= colSize; i++)
+        {
+            colMatrix.add(i, new MatrixEntry<E>());
+        }
+
+        rowMatrix = new ArrayList<MatrixEntry<E>>();
+        for(int i = 0; i <= rowSize; i++)
+        {
+            rowMatrix.add(i, new MatrixEntry<E>());
+        }
     }
 
     public MatrixList(int numCols, int numRows, String file)
@@ -27,31 +41,48 @@ public class MatrixList<E> implements Iterable<E>
 
     public void add(int col, int row, E data)
     {
-        boolean replaced = false;
         validateInput(col, row);
         MatrixEntry<E> el = new MatrixEntry<E>(col, row, data);
-        MatrixEntry<E> currentRow = rowHeader;
+        rowHeader = rowMatrix.get(row);
+        MatrixEntry<E> currentColumn = rowHeader;
 
-		while(currentRow != null)
+        if(currentColumn.getNextColumn().equals(rowHeader))
         {
-            if(currentRow.equals(el))
-            {
-//                System.out.println("replace " + currentRow.getData() + " with " + data + " on pos " + currentRow);
-                currentRow.setData(data);
-                replaced = true;
-                break;
-            }
-            currentRow = currentRow.getNextRow();
+//            System.out.println("add after head " + el.getData() + " on pos " + el);
+            el.setNextColumn(currentColumn);
+            currentColumn.setNextColumn(el);
         }
-
-        if(!replaced)
+        else
         {
-//            System.out.println("add " + el.getData() + " on pos " + el);
-            el.setNextRow(rowHeader.getNextRow());
-            rowHeader.setNextRow(el);
+//            System.out.println("------------------- " + el + " ---------------------");
+            do
+            {
+//                System.out.println(el.getCol() + " > " + currentColumn.getCol() + " = " + (el.getCol() > currentColumn.getCol()));
+//                System.out.println(el.getCol() + " < " + currentColumn.getNextColumn().getCol() + " = " + (el.getCol() < currentColumn.getNextColumn().getCol()));
+//                System.out.println("end of list? " + currentColumn.getNextColumn().equals(rowHeader));
+                if(currentColumn.equals(el))
+                {
+//                    System.out.println(el + " equals " + currentColumn + " = " + currentColumn.equals(el));
+//                    System.out.println("replace " + currentColumn.getData() + " with " + data + " on pos " + currentColumn);
+                    currentColumn.setData(data);
+                    break;
+                }
+                else if(el.getCol() > currentColumn.getCol() && el.getCol() < currentColumn.getNextColumn().getCol() ||
+                        currentColumn.getNextColumn().equals(rowHeader))
+                {
+//                    System.out.println("add " + el.getData() + " after pos " + currentColumn + " on " + el);
+                    el.setNextColumn(currentColumn.getNextColumn());
+                    currentColumn.setNextColumn(el);
+                    break;
+                }
+//                System.out.println("---");
+                currentColumn = currentColumn.getNextColumn();
+            }
+            while(currentColumn != rowHeader);
         }
     }
 
+    //Not used yet, old and incorrect impl.
     public boolean contains(MatrixEntry<E> el)
     {
         MatrixEntry<E> currentRow = rowHeader;
@@ -70,16 +101,21 @@ public class MatrixList<E> implements Iterable<E>
     {
         validateInput(col, row);
         MatrixEntry<E> el = new MatrixEntry<E>(col, row, null);
-        MatrixEntry<E> currentRow = rowHeader;
+        rowHeader = rowMatrix.get(row);
+        MatrixEntry<E> currentColumn = rowHeader;
 
-		while(currentRow != null)
+//        System.out.println("rowHeader " + rowHeader);
+		do
         {
-            if(currentRow.equals(el))
+//            System.out.println("currentRow " + currentColumn);
+            if(currentColumn.equals(el))
             {
-                return currentRow.getData();
+//                System.out.println("Found data " + currentColumn.getData());
+                return currentColumn.getData();
             }
-            currentRow = currentRow.getNextRow();
+            currentColumn = currentColumn.getNextColumn();
         }
+        while(currentColumn != rowHeader);
         return null;
     }
 
@@ -90,12 +126,14 @@ public class MatrixList<E> implements Iterable<E>
         MatrixEntry<E> currentRow = rowHeader;
 		while(currentRow != null)
         {
+//            System.out.println("Remove " + currentRow + " if " + el);
             if(currentRow.equals(el))
             {
+//                System.out.println("Remove " + currentRow.getData());
                 currentRow.getPreviousRow().setNextRow(currentRow.getNextRow());
                 currentRow.getPreviousColumn().setNextColumn(currentRow.getNextColumn());
-                currentRow.getNextRow().setNextRow(currentRow.getPreviousRow());
-                currentRow.getNextColumn().setNextColumn(currentRow.getPreviousColumn());
+                currentRow.getNextRow().setPreviousRow(currentRow.getPreviousRow());
+                currentRow.getNextColumn().setPreviousColumn(currentRow.getPreviousColumn());
                 return currentRow.getData();
             }
             currentRow = currentRow.getNextRow();
@@ -129,13 +167,13 @@ public class MatrixList<E> implements Iterable<E>
 
 	public void clear()
 	{
-		rowHeader = new MatrixEntry<E>(0, 0, null);
+		rowHeader = new MatrixEntry<E>();
 	    rowHeader.setNextRow(null);
 	    rowHeader.setPreviousRow(null);
 	    rowHeader.setNextColumn(null);
 	    rowHeader.setPreviousColumn(null);
 
-		colHeader = new MatrixEntry<E>(0, 0, null);
+		colHeader = new MatrixEntry<E>();
 	    colHeader.setNextRow(null);
 	    colHeader.setPreviousRow(null);
 	    colHeader.setNextColumn(null);

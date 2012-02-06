@@ -14,6 +14,16 @@ public class MatrixEntry<E>
     private MatrixEntry<E> nextRow;
     private MatrixEntry<E> previousRow;
 
+    public MatrixEntry()
+    {
+        this.col = -1;
+        this.row = -1;
+        this.nextCol = this;
+        this.previousCol = this;
+        this.nextRow = this;
+        this.previousRow = this;
+    }
+
     public MatrixEntry(int col, int row, E data)
     {
         this.col = col;
@@ -119,6 +129,6 @@ public class MatrixEntry<E>
 
     public String toString()
     {
-        return "(" + col + "," + row + ")";
+        return "(Col(x): " + col + ", Row(y) " + row + ")";
     }
 }
