@@ -17,6 +17,13 @@ import java.util.ArrayList;
  */
 public class Runlength
 {
+	/**
+	 *	Encode a string using runlength encoding.
+	 *
+	 *	====+++=== -> 4=3+3=
+	 *  hello	   -> 1h1e2l1o
+	 *
+	 */
 	public String encode(String textfile)
 	{
 		ArrayList<String> lines = readFile(textfile);
@@ -42,6 +49,13 @@ public class Runlength
 		return builder.toString();
 	}	
 
+	/**
+	 *	Decode a string that was encoded using runlength
+	 *
+	 *  4=3+3=   ->  ====+++===
+	 *  1h1e2l1o ->  hello
+	 *
+	 */
 	public String decode(String encodedString)
 	{
 		StringBuilder decodedString = new StringBuilder();
@@ -90,6 +104,12 @@ public class Runlength
 		return decodedString.toString();
 	}
 
+	/**
+	 * Apply a frequency to a character
+	 *
+	 * 3a -> aaa
+	 * 4= -> ===
+	 */
 	private void applyFrequency(String encodedString, StringBuilder decodedString, int i, int counter)
 	{
 		//System.out.println("i: " + i + " counter " + counter);
@@ -200,6 +220,9 @@ public class Runlength
 		return lines;
 	}
 
+	/**
+	 *	Helper class that saves the frequency of a character.
+	 */
 	private class FrequencyAndCharacter
 	{
 		public final int  frequency;
@@ -218,6 +241,9 @@ public class Runlength
 		}
 	}
 
+	/*
+	 * This function parses frequency and character pairs from a arraylist of lines representing a encoded file.
+	 */
 	private ArrayList<ArrayList<FrequencyAndCharacter>> getFrequencyCharacterPairs(ArrayList<String> lines)
 	{
 		ArrayList<ArrayList<FrequencyAndCharacter>> encodedLines = new ArrayList<ArrayList<FrequencyAndCharacter>>();
@@ -247,6 +273,7 @@ public class Runlength
 				 }
 			}
 
+			// Don't forget to add the last pair. Is skipped in for.
 			FrequencyAndCharacter fq = new FrequencyAndCharacter(counter, current);
 			encodedLine.add(fq);
 

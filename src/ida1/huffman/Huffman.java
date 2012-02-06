@@ -27,6 +27,12 @@ public class Huffman
 
 	}
 
+	/**
+	 * Returns key value pairs of the frequency of a character in a String.
+	 *
+	 * "aaabcc" -> {"a" 3, "b" 1, "c" 2}
+	 *
+	 */
 	public static HashMap<Character, Integer> frequencyHashMap (String string)
 	{
 		HashMap<Character, Integer> frequency = new HashMap<Character, Integer>();
@@ -49,6 +55,11 @@ public class Huffman
 		return frequency;
 	}
 
+	/**
+	 * Returns an ArrayList of sorted frequencyHashMap
+	 *
+	 * {"a" 3, "b" 1, "c" 2} -> (({"a" 3}), {"c" 2}, ({"b" 1}))
+	 */
 	public static ArrayList<BKnoop <AbstractMap.SimpleEntry <Character, Integer>>> frequencyToSortedList(HashMap<Character, Integer> frequencyHashMap)
 	{
 		ArrayList<BKnoop <AbstractMap.SimpleEntry <Character, Integer>>> frequencyList = new ArrayList<BKnoop <AbstractMap.SimpleEntry <Character, Integer>>>();
@@ -65,6 +76,9 @@ public class Huffman
 		return frequencyList;
 	}
 
+	/**
+	 * Returns a huffman tree based on a sorted frequency list.
+	 */
 	public static BKnoop<AbstractMap.SimpleEntry <Character, Integer>> huffmanTree (ArrayList<BKnoop <AbstractMap.SimpleEntry <Character, Integer>>> frequencySortedList)
 	{
 		if (frequencySortedList.isEmpty())				// Edge case should never be true
@@ -99,6 +113,12 @@ public class Huffman
 		}
 	}
 
+	/**
+	 * Assigns a unique code for each entry in the huffman. Zero represents left
+	 * and One represents go right in the HuffmanTree.
+	 *
+	 * {"a" "001", "b" "1100", "c" "111"}
+	 */
 	public static HashMap<Character, String> codeMap (BKnoop<AbstractMap.SimpleEntry <Character, Integer>> huffmanTree)
 	{
 		HashMap<Character, String> codeMap = new HashMap<Character, String>();
@@ -131,6 +151,11 @@ public class Huffman
 		}
 	}
 
+	/*
+	 * Encode a string to huffman.
+	 *
+	 * "bananen" -> 1001101101010
+	 */
 	public static String encodeString(String plain)
 	{
 		HashMap<Character, String> codeMap = codeMap(huffmanTree(frequencyToSortedList(frequencyHashMap(plain))));
@@ -145,6 +170,11 @@ public class Huffman
 		return buffer.toString();
 	}
 
+	/**
+	 * Decode a string from huffman using a tree.
+	 *
+	 * 1001101101010 -> "bananen"
+	 */
 	public static String decodeString(String code, BKnoop<AbstractMap.SimpleEntry <Character, Integer>> huffmanTree)
 	{
 		BKnoop<AbstractMap.SimpleEntry <Character, Integer>> currentRoot = huffmanTree;
@@ -171,6 +201,11 @@ public class Huffman
 		return buffer.toString();
 	}
 
+	/**
+	 * Decode a string from huffman using a tree. (comes from file)
+	 *
+	 * 1001101101010 -> "bananen"
+	 */
 	public static String decodeString(BKnoop<Character> huffmanTree, String code)
 	{
 		//System.out.println("The code " + code);
@@ -339,6 +374,9 @@ public class Huffman
 		return "Error";
 	}
 
+	/**
+	 * Create a tree from a file's hufflist.
+	 */
 	public static BKnoop<Character> huffmanTreeFromLevelOrderList(ArrayList<Character> hufflist)
 	{
 		BKnoop<Character> huffmanTree = new BKnoop<Character>(hufflist.get(0));
@@ -387,6 +425,9 @@ public class Huffman
 		return huffmanTree;
 	}
 
+	/*
+	 * Comperator for compairing HashMap entries of Character and Integer.
+	 */
 	static class EntryComparator implements Comparator<BKnoop <AbstractMap.SimpleEntry <Character, Integer>>>
 	{
 		public int compare(BKnoop <AbstractMap.SimpleEntry <Character, Integer>> k1, BKnoop <AbstractMap.SimpleEntry <Character, Integer>> k2)
